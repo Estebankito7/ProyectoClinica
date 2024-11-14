@@ -32,7 +32,21 @@ public class CallCenter {
     public void agregarEspecialista(Especialista especialista) {
         listaEspecialistas.add(especialista);
     }
+    public List<Cita> getListaCitas() {
+        return listaCitas;
+    }
 
+    public List<Persona> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    public List<Medico> getListaMedicos() {
+        return listaMedicos;
+    }
+
+    public List<Especialista> getListaEspecialistas() {
+        return listaEspecialistas;
+    }
 
     public void guardarEnArchivo() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Call Center Informacion.txt", true))) {

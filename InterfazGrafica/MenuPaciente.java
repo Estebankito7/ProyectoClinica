@@ -1,53 +1,92 @@
 package InterfazGrafica;
 
 import javax.swing.*;
+import java.awt.event.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-public class MenuPaciente extends JFrame {
+public class MenuPaciente extends JFrame implements ActionListener {
+    // private JButton openThirdButton;
     private JButton botonRegistrarse;
     private JButton botonSolicitudCitas;
     private JButton botonCancelarCitas;
     private JButton botonActualizacionDatos;
-    private ProgramaDeCitas ventanaPrincipal;
+    private JFrame programadecitas;
 
-    public MenuPaciente(ProgramaDeCitas ventanaPrincipal) {
-        // Guardar la referencia de la ventana principal
-        this.ventanaPrincipal = ventanaPrincipal;
+    public MenuPaciente(JFrame programadecitas) {
+        this.programadecitas = programadecitas;
 
         // Configuración de la ventana del menú del paciente
-        setTitle("Programa de citas");
+        setTitle("Programa de Citas");
         setSize(500, 250);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new GridLayout(5, 1, 10, 10));  // Mantener GridLayout con 5 filas
-        setLocationRelativeTo(null);  // Centrar en la pantalla
+        setLayout(new GridLayout(5, 1, 10, 10)); // Mantener GridLayout con 5 filas
 
-        // Agregar un listener para cuando se cierre esta ventana
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                // Al cerrar esta ventana, volver a mostrar la ventana principal
-                ventanaPrincipal.setVisible(true);
-            }
-        });
+        // Centrar la ventana en la pantalla
+        setLocationRelativeTo(null);
 
         // Crear el texto de bienvenida
-        JLabel mensajeBienvenida = new JLabel("Bienvenido querido usuario, porfavor seleccione una opcion:", SwingConstants.CENTER);
+        JLabel mensajeBienvenida = new JLabel("Bienvenido querido usuario, porfavor seleccione una opcion:",
+                SwingConstants.CENTER);
         mensajeBienvenida.setFont(new Font("Arial", Font.BOLD, 14));
 
-        // Crear los botones del menú
-        botonRegistrarse = new JButton("Registrarse");
+        // Inicializar y configurar el botón
+        botonRegistrarse = new JButton("Registro");
+        botonRegistrarse.setBounds(50, 50, 200, 30);
+        botonRegistrarse.addActionListener(this);
         botonSolicitudCitas = new JButton("Solicitud de citas");
+        botonSolicitudCitas.setBounds(50, 50, 200, 30);
+        botonSolicitudCitas.addActionListener(this);
         botonCancelarCitas = new JButton("Cancelar citas");
-        botonActualizacionDatos = new JButton("Actualización de datos");
+        botonCancelarCitas.setBounds(50, 50, 200, 30);
+        botonCancelarCitas.addActionListener(this);
+        botonActualizacionDatos = new JButton("Actualización Datos");
+        botonActualizacionDatos.setBounds(50, 50, 200, 30);
+        botonActualizacionDatos.addActionListener(this);
 
         // Agregar los elementos al panel con GridLayout
-        add(mensajeBienvenida);  // Añadir el mensaje de bienvenida
+        add(mensajeBienvenida); // Añadir el mensaje de bienvenida
         add(botonRegistrarse);
         add(botonSolicitudCitas);
         add(botonCancelarCitas);
         add(botonActualizacionDatos);
+
+        // Añadir un listener para detectar el cierre de la ventana
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Mostrar la ventana anterior al cerrar esta
+                programadecitas.setVisible(true);
+            }
+        });
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //if (e.getSource() == openThirdButton) {
+            if (e.getSource() == botonRegistrarse) {
+            // Crear y mostrar la tercera ventana
+            RegistroPaciente registropaciente = new RegistroPaciente(this);
+            registropaciente.setVisible(true);
+            // Ocultar la segunda ventana
+            setVisible(false);
+        }else if(e.getSource() == botonSolicitudCitas) {
+            
+            // Mostrar el menú del admisionista y esconder esta ventana
+            SolicitudCitas solicitudcitas = new SolicitudCitas(this);
+            solicitudcitas.setVisible(true);
+            setVisible(false);
+        }else if(e.getSource() == botonCancelarCitas) {
+            
+            // Mostrar el menú del admisionista y esconder esta ventana
+            CancelarCitas cancelarcitas = new CancelarCitas(this);
+            cancelarcitas.setVisible(true);
+            setVisible(false);
+        }else if(e.getSource() == botonActualizacionDatos) {
+            
+            // Mostrar el menú del admisionista y esconder esta ventana
+            ActualizacionDatos actualizaciondatos = new ActualizacionDatos(this);
+            actualizaciondatos.setVisible(true);
+            setVisible(false);
+        }
     }
 }
-

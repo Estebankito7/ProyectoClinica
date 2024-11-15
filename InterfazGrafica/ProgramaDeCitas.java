@@ -1,11 +1,11 @@
 package InterfazGrafica;
 
 import javax.swing.*;
+import java.awt.event.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ProgramaDeCitas extends JFrame implements ActionListener {
+    // private JButton openSecondButton;
     private JButton botonPaciente;
     private JButton botonAdmisionista;
     private JLabel titulo;
@@ -36,38 +36,37 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
         // Agregar listeners a los botones
         botonPaciente.addActionListener(this);
         botonAdmisionista.addActionListener(this);
-
+        
         // Agregar los botones al panel de botones
         panelBotones.add(botonPaciente);
         panelBotones.add(botonAdmisionista);
-
+        
         // Agregar el panel de botones en el centro
         add(panelBotones, BorderLayout.CENTER);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Cambiar el color de fondo según el botón presionado y mostrar el menú correspondiente
+       // if (e.getSource() == openSecondButton) {
         if (e.getSource() == botonPaciente) {
-            
-            // Mostrar el menú del paciente y esconder esta ventana
-            MenuPaciente menuPaciente = new MenuPaciente(this);
-            menuPaciente.setVisible(true);
+             //Crear y mostrar la segunda ventana
+            MenuPaciente menupaciente = new MenuPaciente(this);
+            menupaciente.setVisible(true);
+            // Ocultar la ventana principal
             setVisible(false);
-        } else if (e.getSource() == botonAdmisionista) {
+        }else if (e.getSource() == botonAdmisionista) {
             
             // Mostrar el menú del admisionista y esconder esta ventana
-            MenuAdmisionista menuAdmisionista = new MenuAdmisionista(this);
-            menuAdmisionista.setVisible(true);
+            MenuAdmisionista menuadmisionista = new MenuAdmisionista(this);
+            menuadmisionista.setVisible(true);
             setVisible(false);
         }
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            ProgramaDeCitas ventana = new ProgramaDeCitas();
-            ventana.setVisible(true);
-        });
+        // Crear y mostrar la ventana principal
+        ProgramaDeCitas programadecitas = new ProgramaDeCitas();
+        programadecitas.setVisible(true);
     }
 }
-

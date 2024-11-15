@@ -10,11 +10,12 @@ public class MenuAdmisionista extends JFrame {
     private JPasswordField campoContrasena;
     private JButton botonIngresar;
     private JButton botonRegistrarse;
-    private ProgramaDeCitas ventanaPrincipal;
+    //private ProgramaDeCitas1 ventanaPrincipal;
+    private JFrame programadecitas;
 
-    public MenuAdmisionista(ProgramaDeCitas ventanaPrincipal) {
+    public MenuAdmisionista(JFrame programadecitas) {
         // Guardar la referencia de la ventana principal
-        this.ventanaPrincipal = ventanaPrincipal;
+        this.programadecitas = programadecitas;
 
         // Configuración de la ventana del menú del admisionista
         setTitle("Programa de citas");
@@ -28,7 +29,7 @@ public class MenuAdmisionista extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 // Al cerrar esta ventana, volver a mostrar la ventana principal
-                ventanaPrincipal.setVisible(true);
+                programadecitas.setVisible(true);
             }
         });
 

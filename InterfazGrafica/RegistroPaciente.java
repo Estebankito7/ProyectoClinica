@@ -19,8 +19,8 @@ public class RegistroPaciente extends JFrame {
     public RegistroPaciente(JFrame menupaciente) {
     //    this.menupaciente = menupaciente;
 
-        // Configuración de la ventana del menú del admisionista
-        setTitle("Programa de citas");
+        // Configuración de la ventana del menú del RegistroPaciente
+        setTitle("Registro de Nuevo Paciente");
         setSize(400, 350);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new GridBagLayout()); // Usamos GridBagLayout para centrar los elementos

@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import InterfazGrafica.ProgramaDeCitas;
 import InterfazGrafica.RegistroPaciente;
 
 public class CallCenter {
@@ -84,11 +86,18 @@ public class CallCenter {
         }
     }
 
+    //Metodo que crea Registro de  Paciente luego de llenar datos de Menu
     public void CreaRegistroPaciente() {
         RegistroPaciente reg1 = new RegistroPaciente(null);
         Nombre = reg1.getNombreregistro();
         Documento = reg1.getDocumentoregistro();
         Mail = reg1.getMailregistro();
 
+    }
+
+      public static void main(String[] args) {
+        // Crear y mostrar la ventana principal
+        ProgramaDeCitas programadecitas = new ProgramaDeCitas();
+        programadecitas.setVisible(true);
     }
 }

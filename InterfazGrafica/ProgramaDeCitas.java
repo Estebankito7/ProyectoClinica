@@ -64,9 +64,9 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
+    //public static void main(String[] args) {
         // Crear y mostrar la ventana principal
-        ProgramaDeCitas programadecitas = new ProgramaDeCitas();
-        programadecitas.setVisible(true);
-    }
+     //   ProgramaDeCitas programadecitas = new ProgramaDeCitas();
+      //  programadecitas.setVisible(true);
+   // }
 }

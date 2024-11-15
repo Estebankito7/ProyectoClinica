@@ -2,12 +2,8 @@ package InterfazGrafica;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class RegistroPaciente extends JFrame {
     private JFrame menupaciente;
@@ -113,9 +109,18 @@ public class RegistroPaciente extends JFrame {
             String apellidoregistro = campoapellido.getText();
             String documentoregistro = campodocumento.getText();
             //Almacenar en una variable
+            if (!nombreregistro.isEmpty() && !apellidoregistro.isEmpty() && !documentoregistro.isEmpty()){
             System.out.println("Texto ingresado es: "+ nombreregistro);
             System.out.println("Texto ingresado es: "+ apellidoregistro);
             System.out.println("Texto ingresado es: "+ documentoregistro);
+            JOptionPane.showMessageDialog(menupaciente, "Su registro fue creado con exito", "Mensaje", JOptionPane.WARNING_MESSAGE);
+                System.out.println("Se registro con exito");
+                botonRegistrarse.setVisible(false);
+            }else {
+                JOptionPane.showMessageDialog(menupaciente, "Algún campo está vacio", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                System.out.println("El campo de texto esta vacio");
+            }
+
         });
     }
 }

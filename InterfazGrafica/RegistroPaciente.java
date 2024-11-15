@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class RegistroPaciente extends JFrame {
     private JFrame menupaciente;
@@ -13,6 +16,8 @@ public class RegistroPaciente extends JFrame {
     private JTextField campodocumento;
     private JPasswordField campocontraseña;
     private JButton botonRegistrarse;
+    private JTextField nombreField;
+    private JTextField edadField;
 
     public RegistroPaciente(JFrame menupaciente) {
         this.menupaciente = menupaciente;
@@ -85,7 +90,6 @@ public class RegistroPaciente extends JFrame {
        gbc.gridx = 1;
        panel.add(campocontraseña, gbc);
 
-
         // Añadir un listener para detectar el cierre de la ventana
         addWindowListener(new WindowAdapter() {
             @Override
@@ -100,10 +104,18 @@ public class RegistroPaciente extends JFrame {
         gbc.gridy = 5;
         panel.add(botonRegistrarse, gbc);
 
-        // Texto
-        //JLabel label = new JLabel("¡Ingrese los datos seleccionados!");
-        //label.setBounds(0, 50, 200, 30);
-         //add(label);
          add(panel);
+
+         // Darle funcion al boton Registrarse
+         botonRegistrarse.addActionListener(e -> {
+            //Optener el texto del campo de texto 
+            String nombreregistro = camponombre.getText();
+            String apellidoregistro = campoapellido.getText();
+            String documentoregistro = campodocumento.getText();
+            //Almacenar en una variable
+            System.out.println("Texto ingresado es: "+ nombreregistro);
+            System.out.println("Texto ingresado es: "+ apellidoregistro);
+            System.out.println("Texto ingresado es: "+ documentoregistro);
+        });
     }
 }

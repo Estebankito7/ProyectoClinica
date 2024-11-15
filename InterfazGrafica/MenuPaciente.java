@@ -10,10 +10,10 @@ public class MenuPaciente extends JFrame implements ActionListener {
     private JButton botonSolicitudCitas;
     private JButton botonCancelarCitas;
     private JButton botonActualizacionDatos;
-    private JFrame programadecitas;
+    //private JFrame programadecitas;
 
     public MenuPaciente(JFrame programadecitas) {
-        this.programadecitas = programadecitas;
+   //     this.programadecitas = programadecitas;
 
         // Configuración de la ventana del menú del paciente
         setTitle("Programa de Citas");

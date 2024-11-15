@@ -6,17 +6,18 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class RegistroPaciente extends JFrame {
-    private JFrame menupaciente;
-    private JTextField camponombre;
-    private JTextField campomail;
-    private JTextField campodocumento;
+  //  private JFrame menupaciente;
+  
+    private String nombreregistro;
+    private String documentoregistro;
+    private String mailregistro;
     private JPasswordField campocontraseña;
     private JButton botonRegistrarse;
-    private JTextField nombreField;
-    private JTextField edadField;
+    
 
+    @SuppressWarnings("unused") //Elimina advertencias
     public RegistroPaciente(JFrame menupaciente) {
-        this.menupaciente = menupaciente;
+    //    this.menupaciente = menupaciente;
 
         // Configuración de la ventana del menú del admisionista
         setTitle("Programa de citas");
@@ -48,7 +49,7 @@ public class RegistroPaciente extends JFrame {
         gbc.gridwidth = 1;
         panel.add(etiquetanombre, gbc);
 
-        camponombre = new JTextField(15);
+        JTextField camponombre = new JTextField(15);
         gbc.gridx = 1;
         panel.add(camponombre, gbc);
 
@@ -59,7 +60,7 @@ public class RegistroPaciente extends JFrame {
         gbc.gridwidth = 1;
         panel.add(etiquetadocumento, gbc);
 
-        campodocumento = new JTextField(15);
+        JTextField campodocumento = new JTextField(15);
         gbc.gridx = 1;
         panel.add(campodocumento, gbc);
 
@@ -70,7 +71,7 @@ public class RegistroPaciente extends JFrame {
         gbc.gridwidth = 1;
         panel.add(etiquetapellido, gbc);
 
-        campomail = new JTextField(15);
+        JTextField campomail = new JTextField(15);
         gbc.gridx = 1;
         panel.add(campomail, gbc);
 
@@ -103,11 +104,14 @@ public class RegistroPaciente extends JFrame {
         // Darle funcion al boton Registrarse
         botonRegistrarse.addActionListener(e -> {
             // Optener el texto del campo de texto
-            String nombreregistro = camponombre.getText();
-            String documentoregistro = campodocumento.getText();
-            String mailregistro = campomail.getText();
+            nombreregistro = camponombre.getText();
+            documentoregistro = campodocumento.getText();
+            mailregistro = campomail.getText();
+
             // Almacenar en una variable
+            
             if (!nombreregistro.isEmpty() && !mailregistro.isEmpty() && !documentoregistro.isEmpty()) {
+                
                 System.out.println("Nombre ingresado es: " + nombreregistro);
                 System.out.println("Documento ingresado es: " + documentoregistro);
                 System.out.println("mail ingresado es: " + mailregistro);
@@ -128,4 +132,38 @@ public class RegistroPaciente extends JFrame {
 
         });
     }
+
+
+    public String getNombreregistro() {
+        return nombreregistro;
+    }
+
+    public void setNombreregistro(String nombreregistro) {
+        this.nombreregistro = nombreregistro;
+    }
+
+    public String getDocumentoregistro() {
+        return documentoregistro;
+    }
+
+    public void setDocumentoregistro(String documentoregistro) {
+        this.documentoregistro = documentoregistro;
+    }
+
+    public String getMailregistro() {
+        return mailregistro;
+    }
+
+    public void setMailregistro(String mailregistro) {
+        this.mailregistro = mailregistro;
+    }
+
+    public JPasswordField getCampocontraseña() {
+        return campocontraseña;
+    }
+
+    public void setCampocontraseña(JPasswordField campocontraseña) {
+        this.campocontraseña = campocontraseña;
+    }
+
 }

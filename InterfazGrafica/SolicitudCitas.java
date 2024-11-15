@@ -4,12 +4,12 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class SolicitudCitas extends JFrame {
-    private JFrame menupaciente;
-    private JButton botonCrear;
-    private JButton botonRegresar;
+   // private JFrame menupaciente;
+   // private JButton botonCrear;
+   // private JButton botonRegresar;
 
     public SolicitudCitas(JFrame menupaciente) {
-        this.menupaciente = menupaciente;
+   //     this.menupaciente = menupaciente;
 
         // Configuración de la ventana del menú del paciente
         setTitle("Solicitud de Citas");

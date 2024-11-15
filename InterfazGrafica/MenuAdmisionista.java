@@ -11,11 +11,11 @@ public class MenuAdmisionista extends JFrame {
     private JButton botonIngresar;
     private JButton botonRegistrarse;
     //private ProgramaDeCitas1 ventanaPrincipal;
-    private JFrame programadecitas;
+   // private JFrame programadecitas;
 
     public MenuAdmisionista(JFrame programadecitas) {
         // Guardar la referencia de la ventana principal
-        this.programadecitas = programadecitas;
+       // this.programadecitas = programadecitas;
 
         // Configuración de la ventana del menú del admisionista
         setTitle("Programa de citas");

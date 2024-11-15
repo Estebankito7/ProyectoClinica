@@ -5,12 +5,12 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class CancelarCitas extends JFrame {
-    private JFrame menupaciente;
-    private JButton botonCrear;
-    private JButton botonRegresar;
+  //  private JFrame menupaciente;
+  //  private JButton botonCrear;
+  //  private JButton botonRegresar;
 
     public CancelarCitas(JFrame menupaciente) {
-        this.menupaciente = menupaciente;
+   //     this.menupaciente = menupaciente;
 
         // Configuración de la ventana del menú del paciente
         setTitle("Cancelar Citas");

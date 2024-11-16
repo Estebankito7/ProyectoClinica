@@ -14,5 +14,17 @@ public class Paciente extends Persona {
     public void setCodigo(String codigo) {
         Codigo = codigo;
     }
-    
+
+    public void Imprimir() {
+        System.out.println("**********");
+        System.out.println(Nombre);
+        System.out.println(Documento);
+        System.out.println(Telefono);
+        System.out.println(Direccion);
+        System.out.println(Correo);
+        System.out.println("**********");
+        System.out.println("");
+
+}
+
 }

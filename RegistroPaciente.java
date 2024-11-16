@@ -4,18 +4,19 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class RegistroPaciente extends JFrame {
-  //  private JFrame menupaciente;
-  
+    private JFrame menupaciente;
     private String nombreregistro;
     private String documentoregistro;
     private String mailregistro;
     private JPasswordField campocontraseña;
     private JButton botonRegistrarse;
+    private CallCenter callCenter;
     
 
     @SuppressWarnings("unused") //Elimina advertencias
-    public RegistroPaciente(JFrame menupaciente) {
-    //    this.menupaciente = menupaciente;
+    public RegistroPaciente(CallCenter callCenter, JFrame menupaciente) {
+       this.menupaciente = menupaciente;
+       this.callCenter= callCenter;
 
         // Configuración de la ventana del menú del RegistroPaciente
         setTitle("Registro de Nuevo Paciente");
@@ -122,8 +123,7 @@ public class RegistroPaciente extends JFrame {
                 campodocumento.setText("");
                 campomail.setText("");
                 Paciente paciente = new Paciente(nombreregistro, documentoregistro, null, null, mailregistro);
-                CallCenter callcenter = new CallCenter();
-                callcenter.agregarPaciente(paciente);
+                callCenter.agregarPaciente(paciente);
 
             } else {
                 JOptionPane.showMessageDialog(menupaciente, "Algún campo está vacio", "Advertencia",

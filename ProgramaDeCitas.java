@@ -1,14 +1,18 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.util.List;
 
 public class ProgramaDeCitas extends JFrame implements ActionListener {
-    // private JButton openSecondButton;
     private JButton botonPaciente;
     private JButton botonAdmisionista;
+    private JButton botonlistaPacientes;
     private JLabel titulo;
+    private CallCenter callCenter;
 
     public ProgramaDeCitas() {
+       // this.callcenter = callcenter;
+       callCenter = new CallCenter();
         // Configuración de la ventana
         setTitle("Programa de citas");
         setSize(400, 200);
@@ -30,15 +34,18 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
         // Crear y agregar los botones al panel
         botonPaciente = new JButton("Paciente");
         botonAdmisionista = new JButton("Admisionista");
+        botonlistaPacientes = new JButton("Lista de Pacientes");
 
         // Agregar listeners a los botones
         botonPaciente.addActionListener(this);
         botonAdmisionista.addActionListener(this);
-        
+        botonlistaPacientes.addActionListener(this);
+
         // Agregar los botones al panel de botones
         panelBotones.add(botonPaciente);
         panelBotones.add(botonAdmisionista);
-        
+        panelBotones.add(botonlistaPacientes);
+
         // Agregar el panel de botones en el centro
         add(panelBotones, BorderLayout.CENTER);
 
@@ -46,20 +53,32 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       // if (e.getSource() == openSecondButton) {
+        // if (e.getSource() == openSecondButton) {
         if (e.getSource() == botonPaciente) {
-             //Crear y mostrar la segunda ventana
-            MenuPaciente menupaciente = new MenuPaciente(this);
+            // Crear y mostrar la segunda ventana
+            MenuPaciente menupaciente = new MenuPaciente(callCenter, ProgramaDeCitas.this);
             menupaciente.setVisible(true);
             // Ocultar la ventana principal
             setVisible(false);
-        }else if (e.getSource() == botonAdmisionista) {
-            
+        } else if (e.getSource() == botonAdmisionista) {
+
             // Mostrar el menú del admisionista y esconder esta ventana
             MenuAdmisionista menuadmisionista = new MenuAdmisionista(this);
             menuadmisionista.setVisible(true);
             setVisible(false);
+        } else if (e.getSource() == botonlistaPacientes) {
+
+            // Mostrar el menú del admisionista y esconder esta ventana
+            
+            List<Paciente> users = callCenter.getListaPacientes();
+            if (users.size() == 0) {
+                System.out.println("No hay usuarios para mostrar");
+            }
+            for (int i = 0; i < users.size(); i++) {
+                System.out.print("" + (i + 1));
+                users.get(i).Imprimir();
+
+            }
         }
     }
-
 }

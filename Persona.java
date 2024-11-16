@@ -1,10 +1,10 @@
 public class Persona {
 
-    private String Nombre;
-    private String Documento;
-    private String Telefono;
-    private String Direccion;
-    private String Correo;
+    protected String Nombre;
+    protected String Documento;
+    protected String Telefono;
+    protected String Direccion;
+    protected String Correo;
 
     public Persona(String nombre, String documento, String telefono, String direccion, String correo){
         

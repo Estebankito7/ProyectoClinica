@@ -24,9 +24,9 @@ public class CallCenter {
         listaCitas.add(cita);
     }
 
-    public void agregarPaciente(Paciente usuario) {
-        Paciente paciente = new Paciente(Nombre, Documento, Mail, null, null);
-        listaPacientes.add(paciente);
+    public void agregarPaciente(Paciente pacient) {
+       // Paciente paciente = new Paciente(Nombre, Documento, Mail, null, null);
+        listaPacientes.add(pacient);
         
     }
 
@@ -42,7 +42,7 @@ public class CallCenter {
         return listaCitas;
     }
 
-    public List<Paciente> getListaUsuarios() {
+    public List<Paciente> getListaPacientes() {
         return listaPacientes;
     }
 

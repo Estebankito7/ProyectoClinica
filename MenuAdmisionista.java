@@ -9,15 +9,13 @@ public class MenuAdmisionista extends JFrame {
     private JPasswordField campoContrasena;
     private JButton botonIngresar;
     private JButton botonRegistrarse;
-    //private ProgramaDeCitas1 ventanaPrincipal;
-   // private JFrame programadecitas;
 
     public MenuAdmisionista(JFrame programadecitas) {
         // Guardar la referencia de la ventana principal
        // this.programadecitas = programadecitas;
 
         // Configuración de la ventana del menú del admisionista
-        setTitle("Programa de citas");
+        setTitle("Menu Admisionista");
         setSize(300, 250);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new GridBagLayout());  // Usamos GridBagLayout para centrar los elementos

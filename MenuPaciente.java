@@ -9,10 +9,12 @@ public class MenuPaciente extends JFrame implements ActionListener {
     private JButton botonSolicitudCitas;
     private JButton botonCancelarCitas;
     private JButton botonActualizacionDatos;
-    //private JFrame programadecitas;
+    private CallCenter callCenter;
+    private JFrame programadecitas;
 
-    public MenuPaciente(JFrame programadecitas) {
-   //     this.programadecitas = programadecitas;
+    public MenuPaciente(CallCenter callCenter, JFrame programadecitas) {
+       this.programadecitas = programadecitas;
+            this.callCenter= callCenter;
 
         // Configuración de la ventana del menú del paciente
         setTitle("Programa de Citas");
@@ -64,7 +66,7 @@ public class MenuPaciente extends JFrame implements ActionListener {
         //if (e.getSource() == openThirdButton) {
             if (e.getSource() == botonRegistrarse) {
             // Crear y mostrar la tercera ventana
-            RegistroPaciente registropaciente = new RegistroPaciente(this);
+            RegistroPaciente registropaciente = new RegistroPaciente(callCenter,MenuPaciente.this);
             registropaciente.setVisible(true);
             // Ocultar la segunda ventana
             setVisible(false);

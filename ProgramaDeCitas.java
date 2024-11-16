@@ -7,12 +7,13 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
     private JButton botonPaciente;
     private JButton botonAdmisionista;
     private JButton botonlistaPacientes;
+    private JButton botonlistaCitas;
     private JLabel titulo;
     private CallCenter callCenter;
 
     public ProgramaDeCitas() {
-       // this.callcenter = callcenter;
-       callCenter = new CallCenter();
+        // this.callcenter = callcenter;
+        callCenter = new CallCenter();
         // Configuración de la ventana
         setTitle("Programa de citas");
         setSize(400, 200);
@@ -35,16 +36,19 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
         botonPaciente = new JButton("Paciente");
         botonAdmisionista = new JButton("Admisionista");
         botonlistaPacientes = new JButton("Lista de Pacientes");
+        botonlistaCitas = new JButton("Lista de Citas");
 
         // Agregar listeners a los botones
         botonPaciente.addActionListener(this);
         botonAdmisionista.addActionListener(this);
         botonlistaPacientes.addActionListener(this);
+        botonlistaCitas.addActionListener(this);
 
         // Agregar los botones al panel de botones
         panelBotones.add(botonPaciente);
         panelBotones.add(botonAdmisionista);
         panelBotones.add(botonlistaPacientes);
+        panelBotones.add(botonlistaCitas);
 
         // Agregar el panel de botones en el centro
         add(panelBotones, BorderLayout.CENTER);
@@ -69,7 +73,7 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
         } else if (e.getSource() == botonlistaPacientes) {
 
             // Mostrar el menú del admisionista y esconder esta ventana
-            
+
             List<Paciente> users = callCenter.getListaPacientes();
             if (users.size() == 0) {
                 System.out.println("No hay usuarios para mostrar");
@@ -77,6 +81,19 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
             for (int i = 0; i < users.size(); i++) {
                 System.out.print("" + (i + 1));
                 users.get(i).Imprimir();
+
+            }
+        } else if (e.getSource() == botonlistaCitas) {
+
+            // Mostrar el menú del admisionista y esconder esta ventana
+
+            List<Cita> citas = callCenter.getListaCitas();
+            if (citas.size() == 0) {
+                System.out.println("No hay citas para mostrar");
+            }
+            for (int i = 0; i < citas.size(); i++) {
+                System.out.print("" + (i + 1));
+                citas.get(i).Imprimir();
 
             }
         }

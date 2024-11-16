@@ -1,17 +1,19 @@
 public class Cita {
-    
+
     private String fecha;
     private String hora;
     private String consultorio;
     private Medico medico;
+    private String tipo;
     private Paciente paciente;
 
     // Constructor
-    public Cita(String fecha, String hora, String consultorio, Medico medico, Paciente paciente) {
+    public Cita(String fecha, String hora, String consultorio, Medico medico,String tipo, Paciente paciente) {
         this.fecha = fecha;
         this.hora = hora;
         this.consultorio = consultorio;
         this.medico = medico;
+        this.tipo = tipo;
         this.paciente = paciente;
     }
 
@@ -51,6 +53,14 @@ public class Cita {
         return paciente;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
@@ -65,4 +75,18 @@ public class Cita {
                 ", paciente=" + paciente +
                 '}';
     }
+
+    public void Imprimir() {
+        System.out.println("**********");
+        System.out.println(fecha);
+        System.out.println(hora);
+        System.out.println(consultorio);
+        System.out.println(medico.Nombre);
+        System.out.println(tipo);
+        System.out.println(paciente.Nombre);
+        System.out.println("**********");
+        System.out.println("");
+
+    }
+
 }

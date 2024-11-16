@@ -2,15 +2,19 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
 public class SolicitudCitas extends JFrame {
-    // private JFrame menupaciente;
-    // private JButton botonCrear;
-    // private JButton botonRegresar;
+        private String seleccion;
+       private String identificapaciente;
+       private CallCenter callCenter;
+       private JFrame menupaciente;
+
 
     @SuppressWarnings("unused")
-    public SolicitudCitas(JFrame menupaciente) {
-        // this.menupaciente = menupaciente;
+    public SolicitudCitas(CallCenter callCenter, JFrame menupaciente) {
+         this.menupaciente = menupaciente;
+         this.callCenter=callCenter;
 
         // Configuración de la ventana del menú del paciente
         setTitle("Solicitud de Citas");
@@ -85,7 +89,7 @@ public class SolicitudCitas extends JFrame {
             // Agregar una acción al botón
             botonMostrar.addActionListener(event -> {
                 // Obtener la opción seleccionada
-                String seleccion = (String) comboBox.getSelectedItem();
+                seleccion = (String) comboBox.getSelectedItem();
                 // Mostrar la opción seleccionada en un mensaje
                 JOptionPane.showMessageDialog(dialogoSeleccion, "Has seleccionado: " + seleccion);
                 // Actualizar el JLabel en la ventana principal
@@ -106,15 +110,6 @@ public class SolicitudCitas extends JFrame {
             dialogoSeleccion.setVisible(true);
         });
 
-        // Agregar el botón al marco principal
-       // GridBagConstraints gbc1 = new GridBagConstraints();
-       // gbc1.insets = new Insets(10, 10, 10, 10); // Margen entre los elementos
-       // gbc1.fill = GridBagConstraints.HORIZONTAL;
-       // gbc1.gridx = 0;
-       // gbc1.gridy = 1;
-       // add(botonAbrir,gbc1);
-        
-
         // Añadir un listener para detectar el cierre de la ventana
         addWindowListener(new WindowAdapter() {
             @Override
@@ -124,10 +119,54 @@ public class SolicitudCitas extends JFrame {
             }
         });
 
-        // Texto
-        // JLabel label = new JLabel("¡Ingrese los datos seleccionados!");
-        // label.setBounds(0, 50, 200, 30);
-        // add(label);
         add(panel);
-    }
+
+        // Darle funcion al boton Registrarse
+        botonGenerarCita.addActionListener(e -> {
+            // Optener el texto del campo de texto
+            identificapaciente = campoidentificacion.getText();
+            
+            // Almacenar en una variable
+            
+            if (!identificapaciente.isEmpty()) {
+                
+                System.out.println("Paciente ingresado es: " + identificapaciente);
+
+                Paciente paciente =BuscarPaciente(identificapaciente);
+                Medico medico = new Medico("Pedro","","","","","");
+
+                if (paciente.Documento.isEmpty()) {
+                    System.out.println(" No se puede generar la cita porque el paciente no existe");
+                    JOptionPane.showMessageDialog(menupaciente, "No se puede generar la cita porque el paciente no existe", "Advertencia",
+                            JOptionPane.WARNING_MESSAGE);
+                 } else {
+                    
+                    System.out.println(" Se ha generado una nueva cita con:"+ seleccion);
+                    System.out.println("");
+                    Cita cita = new Cita ("","","",medico,seleccion,paciente);
+                    callCenter.agregarCita(cita);
+                    JOptionPane.showMessageDialog(menupaciente, "Cita creada con exito", "Mensaje",
+                            JOptionPane.WARNING_MESSAGE);
+                 }
+                }else {
+                    JOptionPane.showMessageDialog(menupaciente, "Ingrese su identificaion de Paciente", "Advertencia",
+                            JOptionPane.WARNING_MESSAGE);
+                    System.out.println("Ingrese su identificaion de Paciente");
+                }
+
+            });
+        }
+
+    private Paciente BuscarPaciente(String userId) {
+        Paciente respuesta = new Paciente("","","","","");
+        List<Paciente> users = callCenter.getListaPacientes();
+  
+        for (int i = 0; i < users.size(); i++) {
+           Paciente revision = users.get(i);
+           if (revision.Documento.equals(userId)) {
+              respuesta = revision;
+           }
+        }
+        return respuesta;
+     }
 }

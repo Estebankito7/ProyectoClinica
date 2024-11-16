@@ -5,7 +5,7 @@ import java.util.List;
 public class CallCenter {
 
     private List<Cita> listaCitas;
-    private List<Paciente> listaUsuarios;
+    private List<Paciente> listaPacientes;
     private List<Medico> listaMedicos;
     private List<Especialista> listaEspecialistas;
     private String Nombre;
@@ -14,7 +14,7 @@ public class CallCenter {
 
     public CallCenter() {
         listaCitas = new ArrayList<>();
-        listaUsuarios = new ArrayList<>();
+        listaPacientes = new ArrayList<>();
         listaMedicos = new ArrayList<>();
         listaEspecialistas = new ArrayList<>();
 
@@ -24,9 +24,9 @@ public class CallCenter {
         listaCitas.add(cita);
     }
 
-    public void agregarUsuario(Paciente usuario) {
+    public void agregarPaciente(Paciente usuario) {
         Paciente paciente = new Paciente(Nombre, Documento, Mail, null, null);
-        listaUsuarios.add(paciente);
+        listaPacientes.add(paciente);
         
     }
 
@@ -43,7 +43,7 @@ public class CallCenter {
     }
 
     public List<Paciente> getListaUsuarios() {
-        return listaUsuarios;
+        return listaPacientes;
     }
 
     public List<Medico> getListaMedicos() {
@@ -62,7 +62,7 @@ public class CallCenter {
             }
 
             writer.write("\n=== Lista de Usuarios ===\n");
-            for (Persona usuario : listaUsuarios) {
+            for (Persona usuario : listaPacientes) {
                 writer.write(usuario.toString() + "\n");
             }
 
@@ -82,16 +82,6 @@ public class CallCenter {
             System.err.println("Error al guardar en el archivo: " + e.getMessage());
         }
     }
-
-    //Metodo que crea Registro de  Paciente luego de llenar datos de Menu
-    public void CreaRegistroPaciente() {
-        RegistroPaciente reg1 = new RegistroPaciente(null);
-        Nombre = reg1.getNombreregistro();
-        Documento = reg1.getDocumentoregistro();
-        Mail = reg1.getMailregistro();
-
-    }
-
       //public static void main(String[] args) {
         // Crear y mostrar la ventana principal
         //ProgramaDeCitas programadecitas = new ProgramaDeCitas();

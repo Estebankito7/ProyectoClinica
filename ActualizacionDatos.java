@@ -28,8 +28,6 @@ public class ActualizacionDatos extends JFrame {
             }
         });
 
-
-
         //Texto
         JLabel label = new JLabel("¡Ingrese los datos a actualizar!");
         label.setBounds(0, 50, 200, 30);

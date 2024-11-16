@@ -121,6 +121,9 @@ public class RegistroPaciente extends JFrame {
                 camponombre.setText("");
                 campodocumento.setText("");
                 campomail.setText("");
+                Paciente paciente = new Paciente(nombreregistro, documentoregistro, null, null, mailregistro);
+                CallCenter callcenter = new CallCenter();
+                callcenter.agregarPaciente(paciente);
 
             } else {
                 JOptionPane.showMessageDialog(menupaciente, "Algún campo está vacio", "Advertencia",
@@ -131,6 +134,8 @@ public class RegistroPaciente extends JFrame {
         });
     }
 
+
+//Getters y setter
 
     public String getNombreregistro() {
         return nombreregistro;

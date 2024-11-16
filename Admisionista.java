@@ -27,7 +27,10 @@ public class Admisionista<usuariosExistentes> extends Persona {
         usuariosExistentes.add(usuario);
         contraseñasExistentes.add(contraseña);
     }
-
+    
+    public static boolean validarCredenciales(String usuario, String contraseña) {
+        return usuariosExistentes.contains(usuario) && contraseñasExistentes.contains(contraseña);
+    }
 
     public void registrarCita(CallCenter callCenter, Cita cita) {
         callCenter.agregarCita(cita);
@@ -96,4 +99,3 @@ public class Admisionista<usuariosExistentes> extends Persona {
         return super.toString() + ", Usuario: " + usuario;
     }
 }
-

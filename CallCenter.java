@@ -2,9 +2,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import InterfazGrafica.ProgramaDeCitas;
-import InterfazGrafica.RegistroPaciente;
-
 public class CallCenter {
 
     private List<Cita> listaCitas;
@@ -95,9 +92,9 @@ public class CallCenter {
 
     }
 
-      public static void main(String[] args) {
+      //public static void main(String[] args) {
         // Crear y mostrar la ventana principal
-        ProgramaDeCitas programadecitas = new ProgramaDeCitas();
-        programadecitas.setVisible(true);
-    }
+        //ProgramaDeCitas programadecitas = new ProgramaDeCitas();
+        //programadecitas.setVisible(true);
+    //}
 }

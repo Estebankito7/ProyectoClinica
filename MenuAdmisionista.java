@@ -1,8 +1,7 @@
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MenuAdmisionista extends JFrame {
     private JTextField campoClave;
@@ -11,24 +10,12 @@ public class MenuAdmisionista extends JFrame {
     private JButton botonRegistrarse;
 
     public MenuAdmisionista(JFrame programadecitas) {
-        // Guardar la referencia de la ventana principal
-       // this.programadecitas = programadecitas;
-
         // Configuración de la ventana del menú del admisionista
-        setTitle("Menu Admisionista");
+        setTitle("Menú Admisionista");
         setSize(300, 250);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new GridBagLayout());  // Usamos GridBagLayout para centrar los elementos
         setLocationRelativeTo(null);  // Centrar en la pantalla
-
-        // Agregar un listener para cuando se cierre esta ventana
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                // Al cerrar esta ventana, volver a mostrar la ventana principal
-                programadecitas.setVisible(true);
-            }
-        });
 
         // Crear un panel con GridBagLayout para posicionar los elementos
         JPanel panel = new JPanel(new GridBagLayout());
@@ -44,8 +31,8 @@ public class MenuAdmisionista extends JFrame {
         gbc.gridwidth = 2;
         panel.add(etiquetaTitulo, gbc);
 
-        // Campo para la clave
-        JLabel etiquetaClave = new JLabel("Clave:");
+        // Campo para la clave (usuario)
+        JLabel etiquetaClave = new JLabel("Usuario:");
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         panel.add(etiquetaClave, gbc);
@@ -78,6 +65,29 @@ public class MenuAdmisionista extends JFrame {
 
         // Agregar el panel a la ventana
         add(panel);
-    }
-}
 
+        // Acción para el botón "Ingresar"
+        botonIngresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String usuario = campoClave.getText();
+                String contraseña = new String(campoContrasena.getPassword());
+
+                if (Admisionista.validarCredenciales(usuario, contraseña)) {
+                    JOptionPane.showMessageDialog(MenuAdmisionista.this, "Inicio de sesión exitoso.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    programadecitas.setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(MenuAdmisionista.this, "Credenciales incorrectas. Intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        botonRegistrarse.addActionListener(e -> {
+            RegistroAdmisionista registroAdmisionista = new RegistroAdmisionista(this);
+            registroAdmisionista.setVisible(true);
+            this.setVisible(false); // Ocultar la ventana actual
+        });
+        
+}
+}

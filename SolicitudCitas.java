@@ -5,16 +5,17 @@ import java.awt.event.*;
 import java.util.List;
 
 public class SolicitudCitas extends JFrame {
-        private String seleccion;
-       private String identificapaciente;
-       private CallCenter callCenter;
-       private JFrame menupaciente;
-
+    private String seleccion;
+    private String identificapaciente;
+    private CallCenter callCenter;
+    private JFrame menupaciente;
+    private Medico medico;
+    private Especialista especialista;
 
     @SuppressWarnings("unused")
     public SolicitudCitas(CallCenter callCenter, JFrame menupaciente) {
-         this.menupaciente = menupaciente;
-         this.callCenter=callCenter;
+        this.menupaciente = menupaciente;
+        this.callCenter = callCenter;
 
         // Configuración de la ventana del menú del paciente
         setTitle("Solicitud de Citas");
@@ -62,14 +63,14 @@ public class SolicitudCitas extends JFrame {
         gbc.gridy = 0;
         gbc.gridx = 0;
         gbc.gridwidth = 0;
-        add(botonGenerarCita,gbc);
+        add(botonGenerarCita, gbc);
 
         // Crear un botón para abrir la ventana de selección
         JButton botonAbrir = new JButton("Seleccione su requerimiento");
         gbc.gridy = 6;
         gbc.gridx = 0;
         gbc.gridwidth = 0;
-        add(botonAbrir,gbc);
+        add(botonAbrir, gbc);
 
         // Agregar una acción al botón
         botonAbrir.addActionListener(e -> {
@@ -125,48 +126,84 @@ public class SolicitudCitas extends JFrame {
         botonGenerarCita.addActionListener(e -> {
             // Optener el texto del campo de texto
             identificapaciente = campoidentificacion.getText();
-            
+
             // Almacenar en una variable
-            
+
             if (!identificapaciente.isEmpty()) {
-                
+
                 System.out.println("Paciente ingresado es: " + identificapaciente);
 
-                Paciente paciente =BuscarPaciente(identificapaciente);
-                Medico medico = new Medico("Pedro","","","","","");
+                Paciente paciente = BuscarPaciente(identificapaciente);
+                if (seleccion.equals("Medicina General")) {
+                    medico = SeleccionarMedico(seleccion);
+                    especialista = new Especialista("", "", "", "", "", "", "","");
+                } else {
+                    especialista = SeleccionarEspecialista(seleccion);
+                    medico = new Medico("", "", "", "", "", "");
+                }
 
                 if (paciente.Documento.isEmpty()) {
                     System.out.println(" No se puede generar la cita porque el paciente no existe");
-                    JOptionPane.showMessageDialog(menupaciente, "No se puede generar la cita porque el paciente no existe", "Advertencia",
-                            JOptionPane.WARNING_MESSAGE);
-                 } else {
-                    
-                    System.out.println(" Se ha generado una nueva cita con:"+ seleccion);
+                    JOptionPane.showMessageDialog(menupaciente,
+                            "No se puede generar la cita porque el paciente no existe. Regístrese en el menú anterior",
+                            "Advertencia", JOptionPane.WARNING_MESSAGE);
+                } else {
+
+                    System.out.println(" Se ha generado una nueva cita con:" + seleccion);
                     System.out.println("");
-                    Cita cita = new Cita ("","","",medico,seleccion,paciente);
+                    Cita cita = new Cita("", "", "", medico, especialista, paciente);
                     callCenter.agregarCita(cita);
                     JOptionPane.showMessageDialog(menupaciente, "Cita creada con exito", "Mensaje",
                             JOptionPane.WARNING_MESSAGE);
-                 }
-                }else {
-                    JOptionPane.showMessageDialog(menupaciente, "Ingrese su identificaion de Paciente", "Advertencia",
-                            JOptionPane.WARNING_MESSAGE);
-                    System.out.println("Ingrese su identificaion de Paciente");
                 }
+            } else {
+                JOptionPane.showMessageDialog(menupaciente, "Ingrese su identificaion de Paciente", "Advertencia",
+                        JOptionPane.WARNING_MESSAGE);
+                System.out.println("Ingrese su identificaion de Paciente");
+            }
 
-            });
-        }
+        });
+    }
 
     private Paciente BuscarPaciente(String userId) {
-        Paciente respuesta = new Paciente("","","","","");
+        Paciente respuesta = new Paciente("", "", "", "", "");
         List<Paciente> users = callCenter.getListaPacientes();
-  
+
         for (int i = 0; i < users.size(); i++) {
-           Paciente revision = users.get(i);
-           if (revision.Documento.equals(userId)) {
-              respuesta = revision;
-           }
+            Paciente revision = users.get(i);
+            if (revision.Documento.equals(userId)) {
+                respuesta = revision;
+            }
         }
         return respuesta;
-     }
+    }
+
+    private Medico SeleccionarMedico(String seleccion) {
+        Medico respuesta = new Medico("", "", "", "", "", "");
+        List<Medico> medicos = callCenter.getListaMedicos();
+
+        for (int i = 0; i < medicos.size(); i++) {
+            Medico medico = medicos.get(i);
+            if (medico.getEstado().equals("Disponible")) {
+                respuesta = medico;
+            }
+        }
+        return respuesta;
+    }
+
+    private Especialista SeleccionarEspecialista(String seleccion) {
+        Especialista respuesta = new Especialista("", "", "", "", "", "", "","");
+        List<Especialista> especialistas = callCenter.getListaEspecialistas();
+
+        for (int i = 0; i < especialistas.size(); i++) {
+            Especialista especialista = especialistas.get(i);
+            if (especialista.getEspecialidad().equals(seleccion)) {
+                if (especialista.getEstado().equals("Disponible")) {
+                    respuesta = especialista;
+                }
+
+            }
+        }
+        return respuesta;
+    }
 }

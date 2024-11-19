@@ -8,12 +8,11 @@ public class Cita {
     private Paciente paciente;
 
     // Constructor
-    public Cita(String fecha, String hora, String consultorio, Medico medico,String tipo, Paciente paciente) {
+    public Cita(String fecha, String hora, String consultorio, Medico medico,Especialista especialista, Paciente paciente) {
         this.fecha = fecha;
         this.hora = hora;
         this.consultorio = consultorio;
         this.medico = medico;
-        this.tipo = tipo;
         this.paciente = paciente;
     }
 

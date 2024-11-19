@@ -8,6 +8,8 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
     private JButton botonAdmisionista;
     private JButton botonlistaPacientes;
     private JButton botonlistaCitas;
+    private JButton botonlistaMedicos;
+    private JButton botonlistaEspecialistas;
     private JLabel titulo;
     private CallCenter callCenter;
 
@@ -37,18 +39,24 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
         botonAdmisionista = new JButton("Admisionista");
         botonlistaPacientes = new JButton("Lista de Pacientes");
         botonlistaCitas = new JButton("Lista de Citas");
+        botonlistaMedicos = new JButton("Lista de Medicos");
+        botonlistaEspecialistas = new JButton("Lista de Especialistas");
 
         // Agregar listeners a los botones
         botonPaciente.addActionListener(this);
         botonAdmisionista.addActionListener(this);
         botonlistaPacientes.addActionListener(this);
         botonlistaCitas.addActionListener(this);
+        botonlistaMedicos.addActionListener(this);
+        botonlistaEspecialistas.addActionListener(this);
 
         // Agregar los botones al panel de botones
         panelBotones.add(botonPaciente);
         panelBotones.add(botonAdmisionista);
         panelBotones.add(botonlistaPacientes);
         panelBotones.add(botonlistaCitas);
+        panelBotones.add(botonlistaMedicos);
+        panelBotones.add(botonlistaEspecialistas);
 
         // Agregar el panel de botones en el centro
         add(panelBotones, BorderLayout.CENTER);
@@ -60,6 +68,8 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
         // if (e.getSource() == openSecondButton) {
         if (e.getSource() == botonPaciente) {
             // Crear y mostrar la segunda ventana
+            callCenter.AgregarListaMedicos();
+            callCenter.AgregarListaEspecialistas();
             MenuPaciente menupaciente = new MenuPaciente(callCenter, ProgramaDeCitas.this);
             menupaciente.setVisible(true);
             // Ocultar la ventana principal
@@ -94,6 +104,36 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
             for (int i = 0; i < citas.size(); i++) {
                 System.out.print("" + (i + 1));
                 citas.get(i).Imprimir();
+
+            }
+        }
+
+        else if (e.getSource() == botonlistaMedicos) {
+
+            // Mostrar el menú de Lista de Medicos y esconder esta ventana
+
+            List<Medico> medicos = callCenter.getListaMedicos();
+            if (medicos.size() == 0) {
+                System.out.println("No hay medicos para mostrar");
+            }
+            for (int i = 0; i < medicos.size(); i++) {
+                System.out.print("" + (i + 1));
+                medicos.get(i).Imprimir();
+
+            }
+        }
+
+        else if (e.getSource() == botonlistaEspecialistas) {
+
+            // Mostrar el menú del admisionista y esconder esta ventana
+
+            List<Especialista> especialistas = callCenter.getListaEspecialistas();
+            if (especialistas.size() == 0) {
+                System.out.println("No hay medicos especialistas para mostrar");
+            }
+            for (int i = 0; i < especialistas.size(); i++) {
+                System.out.print("" + (i + 1));
+                especialistas.get(i).Imprimir();
 
             }
         }

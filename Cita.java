@@ -3,17 +3,20 @@ public class Cita {
     private String fecha;
     private String hora;
     private String consultorio;
+    private String area;
     private Medico medico;
-    private String tipo;
     private Paciente paciente;
+    private Especialista especialista;
 
     // Constructor
-    public Cita(String fecha, String hora, String consultorio, Medico medico,Especialista especialista, Paciente paciente) {
+    public Cita(String fecha, String hora, String consultorio,String area, Medico medico,Especialista especialista, Paciente paciente) {
         this.fecha = fecha;
         this.hora = hora;
         this.consultorio = consultorio;
+        this.area = area;
         this.medico = medico;
         this.paciente = paciente;
+        this.especialista = especialista;
     }
 
     public String getFecha() {
@@ -52,16 +55,24 @@ public class Cita {
         return paciente;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public Especialista getEspecialista() {
+        return especialista;
+    }
+
+    public void setEspecialista(Especialista especialista) {
+        this.especialista = especialista;
     }
 
     @Override
@@ -80,12 +91,13 @@ public class Cita {
         System.out.println(fecha);
         System.out.println(hora);
         System.out.println(consultorio);
+        System.out.println(area);
         System.out.println(medico.Nombre);
-        System.out.println(tipo);
+        System.out.println(especialista.Nombre);
         System.out.println(paciente.Nombre);
         System.out.println("**********");
         System.out.println("");
 
     }
-
+   
 }

@@ -11,11 +11,13 @@ public class SolicitudCitas extends JFrame {
     private JFrame menupaciente;
     private Medico medico;
     private Especialista especialista;
+    public String warning;
 
     @SuppressWarnings("unused")
     public SolicitudCitas(CallCenter callCenter, JFrame menupaciente) {
         this.menupaciente = menupaciente;
         this.callCenter = callCenter;
+        warning = "null";
 
         // Configuración de la ventana del menú del paciente
         setTitle("Solicitud de Citas");
@@ -132,34 +134,64 @@ public class SolicitudCitas extends JFrame {
             if (!identificapaciente.isEmpty()) {
 
                 System.out.println("Paciente ingresado es: " + identificapaciente);
-
                 Paciente paciente = BuscarPaciente(identificapaciente);
+
                 if (seleccion.equals("Medicina General")) {
                     medico = SeleccionarMedico(seleccion);
-                    especialista = new Especialista("", "", "", "", "", "", "","");
+                    especialista = new Especialista("", "", "", "", "", "", "", "");
+                    if (medico.Nombre.isEmpty()) {
+                        warning = "error";
+                    }
                 } else {
                     especialista = SeleccionarEspecialista(seleccion);
-                    medico = new Medico("", "", "", "", "", "");
+                    medico = new Medico("", "", "", "", "", "", "");
+                    if (especialista.Nombre.isEmpty()) {
+                        warning = "error";
+                    }
                 }
 
-                if (paciente.Documento.isEmpty()) {
-                    System.out.println(" No se puede generar la cita porque el paciente no existe");
-                    JOptionPane.showMessageDialog(menupaciente,
-                            "No se puede generar la cita porque el paciente no existe. Regístrese en el menú anterior",
-                            "Advertencia", JOptionPane.WARNING_MESSAGE);
+                if (paciente.Documento.isEmpty() || warning.equals("error") || !callCenter.getListaCitas().isEmpty() ) {
+                    if (paciente.Documento.isEmpty()) {
+                        System.out.println(" No se puede generar la cita porque el paciente no existe");
+                        JOptionPane.showMessageDialog(menupaciente,
+                                "No se puede generar la cita porque el paciente no existe. Regístrese en el menú anterior",
+                                "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    } else if (warning.equals("error")) {
+                        System.out.println(" No se puede generar porque no hay medicos disponibles");
+                        JOptionPane.showMessageDialog(menupaciente,
+                                "No se puede generar porque no hay medicos disponibles",
+                                "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    } else if (!callCenter.getListaCitas().isEmpty()) {
+                        Cita revision = new Cita("", "", "", seleccion, medico, especialista, paciente);
+                        for (int i = 0; i < callCenter.getListaCitas().size(); i++)
+                            revision = callCenter.getListaCitas().get(i);
+                        if (revision.getPaciente().Documento.equals(identificapaciente)) {
+                            if (revision.getArea().equals(seleccion)) {
+                                System.out.println(" No se puede generar la cita porque el paciente ya tiene una cita asignada");
+                                JOptionPane.showMessageDialog(menupaciente,
+                                        "No se puede generar la cita porque el paciente ya tiene una cita asignada",
+                                        "Advertencia", JOptionPane.WARNING_MESSAGE);
+                            }
+                        }
+                    }
+
                 } else {
 
                     System.out.println(" Se ha generado una nueva cita con:" + seleccion);
+                    System.out.println("Medico:" + medico.Nombre);
+                    System.out.println("Especialista:" + especialista.Nombre);
                     System.out.println("");
-                    Cita cita = new Cita("", "", "", medico, especialista, paciente);
+                    Cita cita = new Cita("", "", "", seleccion, medico, especialista, paciente);
                     callCenter.agregarCita(cita);
+                    medico.setEstado("No Disponible");
+                    especialista.setEstado("No Disponible");
                     JOptionPane.showMessageDialog(menupaciente, "Cita creada con exito", "Mensaje",
                             JOptionPane.WARNING_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(menupaciente, "Ingrese su identificaion de Paciente", "Advertencia",
+                JOptionPane.showMessageDialog(menupaciente, "Ingrese su identificacion de Paciente", "Advertencia",
                         JOptionPane.WARNING_MESSAGE);
-                System.out.println("Ingrese su identificaion de Paciente");
+                System.out.println("Ingrese su identificacion de Paciente");
             }
 
         });
@@ -179,7 +211,7 @@ public class SolicitudCitas extends JFrame {
     }
 
     private Medico SeleccionarMedico(String seleccion) {
-        Medico respuesta = new Medico("", "", "", "", "", "");
+        Medico respuesta = new Medico("", "", "", "", "", "", "");
         List<Medico> medicos = callCenter.getListaMedicos();
 
         for (int i = 0; i < medicos.size(); i++) {
@@ -192,7 +224,7 @@ public class SolicitudCitas extends JFrame {
     }
 
     private Especialista SeleccionarEspecialista(String seleccion) {
-        Especialista respuesta = new Especialista("", "", "", "", "", "", "","");
+        Especialista respuesta = new Especialista("", "", "", "", "", "", "", "");
         List<Especialista> especialistas = callCenter.getListaEspecialistas();
 
         for (int i = 0; i < especialistas.size(); i++) {
@@ -201,7 +233,6 @@ public class SolicitudCitas extends JFrame {
                 if (especialista.getEstado().equals("Disponible")) {
                     respuesta = especialista;
                 }
-
             }
         }
         return respuesta;

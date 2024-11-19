@@ -12,10 +12,6 @@ public class CallCenter {
     private String Nombre;
     private String Documento;
     private String Mail;
-    
-    //private String Nombre;
-    //private String Documento;
-    //private String Mail;
 
     public CallCenter() {
         listaCitas = new ArrayList<>();
@@ -95,28 +91,28 @@ public List<Admisionista> getListaAdmisionista() {
         }
     }
       public void AgregarListaMedicos(){
-        Medico medico = new Medico("Mario Correa", "1.125.345.321","3176654876","Calle 23 # 4-56", "mariocorrea@gmail.com","R2478");;
+        Medico medico = new Medico("Mario Correa", "1.125.345.321","3176654876","Calle 23 # 4-56", "mariocorrea@gmail.com","R2478","Disponible");;
         agregarMedico(medico);
-        medico = new Medico("Diego Bejarano", "94.786.432","3164453583","Carrera 1 # 23-67", "diegobejarano@gmail.com","R5734");
+        medico = new Medico("Diego Bejarano", "94.786.432","3164453583","Carrera 1 # 23-67", "diegobejarano@gmail.com","R5734","Disponible");
         agregarMedico(medico);
-        medico = new Medico("Francisco Gonzalez", "3.564.786","3125567863","Calle 45 # 35-66", "franciscogonzalez@gmail.com","R4578");
+        medico = new Medico("Francisco Gonzalez", "3.564.786","3125567863","Calle 45 # 35-66", "franciscogonzalez@gmail.com","R4578","Disponible");
         agregarMedico(medico);
-        medico = new Medico("Pedro Ochoa", "94.565.434","3129984456","Avenida 3 # 5-78", "pedroochoa@gmail.com","R2734");
+        medico = new Medico("Pedro Ochoa", "94.565.434","3129984456","Avenida 3 # 5-78", "pedroochoa@gmail.com","R2734","Disponible");
         agregarMedico(medico);
       }
 
       public void AgregarListaEspecialistas(){
-        Especialista especialista = new Especialista("Jhonn Orozco","94050302","3137658748","Carrera 70 # 23-54","jhonnorozco@gmail.com","Optómetra","R3456","Disponible");;
+        Especialista especialista = new Especialista("Jhonn Orozco","94050302","3137658748","Carrera 70 # 23-54","jhonnorozco@gmail.com","Optometría","R3456","Disponible");;
         agregarEspecialista(especialista);
-        especialista = new Especialista("Carlos Rodriguez", "93485738","3174566534","Calle 9b #  3-12","carlosrodriguez@gmail.com","Optómetra","R2467","Disponible");
+        especialista = new Especialista("Carlos Rodriguez", "93485738","3174566534","Calle 9b #  3-12","carlosrodriguez@gmail.com","Optometría","R2467","Disponible");
         agregarEspecialista(especialista);
-        especialista = new Especialista("Luis Paz", "93483654","3174566534","Calle 34 #  2-45","luispaz@gmail.com","Odontólogo","R6745","Disponible");
+        especialista = new Especialista("Luis Paz", "93483654","3174566534","Calle 34 #  2-45","luispaz@gmail.com","Odontología","R6745","Disponible");
         agregarEspecialista(especialista);
-        especialista = new Especialista("Jorge Cardona", "94485445","3194566533","Calle 6 #  12-12","jorgecardona@gmail.com","Odontólogo","R8574","Disponible");
+        especialista = new Especialista("Jorge Cardona", "94485445","3194566533","Calle 6 #  12-12","jorgecardona@gmail.com","Odontología","R8574","Disponible");
         agregarEspecialista(especialista);
-        especialista = new Especialista("Maria Benavidez", "95485734","3124546531","Carrea 5b #  34-12","mariabenavidez@gmail.com","Pediatra","R9045","Disponible");
+        especialista = new Especialista("Maria Benavidez", "95485734","3124546531","Carrea 5b #  34-12","mariabenavidez@gmail.com","Pediatría","R9045","Disponible");
         agregarEspecialista(especialista);
-        especialista = new Especialista("Claudia Tabares", "93485738","3154566678","Calle 21 #  56-12","claudiatabares@gmail.com","Pediatra","R8924","Disponible");
+        especialista = new Especialista("Claudia Tabares", "93485738","3154566678","Calle 21 #  56-12","claudiatabares@gmail.com","Pediatría","R8924","Disponible");
         agregarEspecialista(especialista);
         System.out.println(""+ especialista.Nombre+" , "+ especialista.Documento+" , "+especialista.getEspecialidad());
     

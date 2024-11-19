@@ -5,10 +5,10 @@ public class Medico extends Persona {
 
     // Constructor
     public Medico(String nombre, String documento, String telefono, String direccion, String correo,
-            String registroMedico) {
+            String registroMedico,String estado) {
         super(nombre, documento, telefono, direccion, correo);
         this.RegistroMedico = registroMedico;
-        Estado = "disponible";
+        this.Estado= estado;
     }
 
     // Getter y Setter para registroMedico
@@ -48,6 +48,7 @@ public class Medico extends Persona {
         System.out.println(Direccion);
         System.out.println(Correo);
         System.out.println(RegistroMedico);
+        System.out.println(Estado);
         System.out.println("**********");
         System.out.println("");
     }

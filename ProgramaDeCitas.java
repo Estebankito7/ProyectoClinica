@@ -16,6 +16,8 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
     public ProgramaDeCitas() {
         // this.callcenter = callcenter;
         callCenter = new CallCenter();
+        callCenter.AgregarListaMedicos();
+        callCenter.AgregarListaEspecialistas();
         // Configuración de la ventana
         setTitle("Programa de citas");
         setSize(400, 200);
@@ -68,8 +70,6 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
         // if (e.getSource() == openSecondButton) {
         if (e.getSource() == botonPaciente) {
             // Crear y mostrar la segunda ventana
-            callCenter.AgregarListaMedicos();
-            callCenter.AgregarListaEspecialistas();
             MenuPaciente menupaciente = new MenuPaciente(callCenter, ProgramaDeCitas.this);
             menupaciente.setVisible(true);
             // Ocultar la ventana principal

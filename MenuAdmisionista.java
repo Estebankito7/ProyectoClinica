@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class MenuAdmisionista extends JFrame {
     private JTextField campoClave;
@@ -14,13 +13,13 @@ public class MenuAdmisionista extends JFrame {
         setTitle("Menú Admisionista");
         setSize(300, 250);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new GridBagLayout());  // Usamos GridBagLayout para centrar los elementos
-        setLocationRelativeTo(null);  // Centrar en la pantalla
+        setLayout(new GridBagLayout()); // Usamos GridBagLayout para centrar los elementos
+        setLocationRelativeTo(null); // Centrar en la pantalla
 
         // Crear un panel con GridBagLayout para posicionar los elementos
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);  // Margen entre los elementos
+        gbc.insets = new Insets(5, 5, 5, 5); 
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Etiqueta de instrucciones
@@ -62,11 +61,9 @@ public class MenuAdmisionista extends JFrame {
         botonRegistrarse = new JButton("Registrarse");
         gbc.gridy = 4;
         panel.add(botonRegistrarse, gbc);
-
-        // Agregar el panel a la ventana
         add(panel);
 
-        // Acción para el botón "Ingresar"
+
         botonIngresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -83,11 +80,18 @@ public class MenuAdmisionista extends JFrame {
             }
         });
 
+
         botonRegistrarse.addActionListener(e -> {
             RegistroAdmisionista registroAdmisionista = new RegistroAdmisionista(this);
             registroAdmisionista.setVisible(true);
             this.setVisible(false); // Ocultar la ventana actual
         });
-        
-}
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                programadecitas.setVisible(true);
+            }
+        });
+    }
 }

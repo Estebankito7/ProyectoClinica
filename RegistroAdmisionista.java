@@ -106,4 +106,56 @@ public class RegistroAdmisionista extends JFrame {
             }
         });
     }
+public JTextField getCampoNombre() {
+    return campoNombre;
+}
+
+public void setCampoNombre(JTextField campoNombre) {
+    this.campoNombre = campoNombre;
+}
+
+public JTextField getCampoDocumento() {
+    return campoDocumento;
+}
+
+public void setCampoDocumento(JTextField campoDocumento) {
+    this.campoDocumento = campoDocumento;
+}
+
+public JTextField getCampoCorreo() {
+    return campoCorreo;
+}
+
+public void setCampoCorreo(JTextField campoCorreo) {
+    this.campoCorreo = campoCorreo;
+}
+
+public JTextField getCampoClave() {
+    return campoClave;
+}
+
+public void setCampoClave(JTextField campoClave) {
+    this.campoClave = campoClave;
+}
+
+public JButton getBotonRegistrar() {
+    return botonRegistrar;
+}
+
+public void setBotonRegistrar(JButton botonRegistrar) {
+    this.botonRegistrar = botonRegistrar;
+}
+
+public JFrame getMenuAdmisionista() {
+    return menuAdmisionista;
+}
+
+public void setMenuAdmisionista(JFrame menuAdmisionista) {
+    this.menuAdmisionista = menuAdmisionista;
+}
+
+public static String getClaveEspecifica() {
+    return CLAVE_ESPECIFICA;
+}
+
 }

@@ -8,6 +8,7 @@ public class CallCenter {
     private List<Paciente> listaPacientes;
     private List<Medico> listaMedicos;
     private List<Especialista> listaEspecialistas;
+    private List<Admisionista> listaAdmisionista;
     private String Nombre;
     private String Documento;
     private String Mail;
@@ -17,7 +18,7 @@ public class CallCenter {
         listaPacientes = new ArrayList<>();
         listaMedicos = new ArrayList<>();
         listaEspecialistas = new ArrayList<>();
-
+        listaAdmisionista = new ArrayList<>();
     }
 
     public void agregarCita(Cita cita) {
@@ -38,6 +39,11 @@ public class CallCenter {
         listaEspecialistas.add(especialista);
     }
 
+    public void agregarAdmisionista(Admisionista Admisionista) {
+        listaAdmisionista.add(Admisionista);
+    }
+
+
     public List<Cita> getListaCitas() {
         return listaCitas;
     }
@@ -53,6 +59,11 @@ public class CallCenter {
     public List<Especialista> getListaEspecialistas() {
         return listaEspecialistas;
     }
+    
+    public List<Admisionista> getListaAdmisionista() {
+        return listaAdmisionista;
+    }
+
 
     public void guardarEnArchivo() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Call Center Informacion.txt", true))) {

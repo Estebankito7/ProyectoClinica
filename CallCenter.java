@@ -2,16 +2,20 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CallCenter {
 
     private List<Cita> listaCitas;
     private List<Paciente> listaPacientes;
     private List<Medico> listaMedicos;
     private List<Especialista> listaEspecialistas;
+    private Calendario calendario;
+
     private List<Admisionista> listaAdmisionista;
     private String Nombre;
     private String Documento;
     private String Mail;
+    
 
     public CallCenter() {
         listaCitas = new ArrayList<>();
@@ -19,6 +23,8 @@ public class CallCenter {
         listaMedicos = new ArrayList<>();
         listaEspecialistas = new ArrayList<>();
         listaAdmisionista = new ArrayList<>();
+        calendario = new Calendario();
+        
     }
 
     public void agregarCita(Cita cita) {
@@ -117,5 +123,14 @@ public List<Admisionista> getListaAdmisionista() {
         System.out.println(""+ especialista.Nombre+" , "+ especialista.Documento+" , "+especialista.getEspecialidad());
     
       }
-      
+
+    public Calendario getCalendario() {
+        return calendario;
+    }
+
+    public void setCalendario(Calendario calendario) {
+        this.calendario = calendario;
+    }
+
 }
+    

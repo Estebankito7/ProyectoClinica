@@ -2,6 +2,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class SolicitudCitas extends JFrame {
@@ -158,8 +160,8 @@ public class SolicitudCitas extends JFrame {
 
                 if (!paciente.Documento.isEmpty()) {
 
-                    revisioncontraseña = checkcontraseña(identificacontraseña, paciente); // Metodo que chequea
-                                                                                          // contraseña de paciente
+                    revisioncontraseña = checkcontraseña(identificacontraseña, paciente); // Metodo que chequea contraseña de paciente
+                                                                                         
                     if (revisioncontraseña) {
 
                         if (seleccion.equals("Medicina General")) { // Seleccion de medico medicina general
@@ -223,7 +225,6 @@ public class SolicitudCitas extends JFrame {
                             
                         }
                         
-
                     } else {
 
                         System.out.println(" Contraseña incorrecta");
@@ -233,8 +234,6 @@ public class SolicitudCitas extends JFrame {
                         resetcampos();
 
                     }
-
-                    
 
                 } else {
                     System.out.println(" No se puede generar la cita porque el paciente no existe");
@@ -329,11 +328,13 @@ public class SolicitudCitas extends JFrame {
     } 
 
     private void GeneraCita(Cita cita){
+        List<String> revisarcalendario = callCenter.getCalendario().getDiasHabiles();
         callCenter.agregarCita(cita);
         medico.setEstado("No Disponible");
         especialista.setEstado("No Disponible");
         JOptionPane.showMessageDialog(menupaciente, "Cita creada con exito", "Mensaje",
-                JOptionPane.WARNING_MESSAGE);
+                     JOptionPane.WARNING_MESSAGE);
+                                System.out.println(""+revisarcalendario);
         resetcampos();
     }
 }

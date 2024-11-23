@@ -14,10 +14,11 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
     private CallCenter callCenter;
 
     public ProgramaDeCitas() {
-        // this.callcenter = callcenter;
+        
         callCenter = new CallCenter();
         callCenter.AgregarListaMedicos();
         callCenter.AgregarListaEspecialistas();
+        
         // Configuración de la ventana
         setTitle("Programa de citas");
         setSize(400, 200);

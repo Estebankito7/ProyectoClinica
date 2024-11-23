@@ -38,6 +38,15 @@ public class CallCenter {
         listaEspecialistas.add(especialista);
     }
 
+    
+    public void cancelarCita(CallCenter callCenter, Cita cita) {
+        if (callCenter.listaCitas.remove(cita)) {
+            System.out.println("Cita cancelada exitosamente.");
+        } else {
+            System.out.println("La cita no existe en el sistema.");
+        }
+    }
+
     public List<Cita> getListaCitas() {
         return listaCitas;
     }

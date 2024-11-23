@@ -79,7 +79,7 @@ public class MenuPaciente extends JFrame implements ActionListener {
         }else if(e.getSource() == botonCancelarCitas) {
             
             // Mostrar el menú del admisionista y esconder esta ventana
-            CancelarCitas cancelarcitas = new CancelarCitas(this);
+            CancelarCitas cancelarcitas = new CancelarCitas(this, callCenter);
             cancelarcitas.setVisible(true);
             setVisible(false);
         }else if(e.getSource() == botonActualizacionDatos) {

@@ -2,9 +2,12 @@
 public class Paciente extends Persona {
 
     private String Codigo;
+    private String Contraseña;
     
-    public Paciente (String Nombre, String Documento, String Telefono, String Direccion, String Correo){
+    public Paciente (String Nombre, String Documento, String Telefono, String Direccion, String Correo, String Contraseña){
         super(Nombre,Documento,Telefono, Direccion, Correo );
+
+        this.Contraseña = Contraseña;
     }
     
     public String getCodigo() {
@@ -14,7 +17,13 @@ public class Paciente extends Persona {
     public void setCodigo(String codigo) {
         Codigo = codigo;
     }
+    public String getContraseña() {
+        return Contraseña;
+    }
 
+    public void setContraseña(String contraseña) {
+        Contraseña = contraseña;
+    }
     public void Imprimir() {
         System.out.println("**********");
         System.out.println(Nombre);
@@ -26,5 +35,7 @@ public class Paciente extends Persona {
         System.out.println("");
 
 }
+
+    
 
 }

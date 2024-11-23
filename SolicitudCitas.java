@@ -6,22 +6,26 @@ import java.util.List;
 
 public class SolicitudCitas extends JFrame {
     private String seleccion;
-    private String identificapaciente;
+    private Paciente paciente;
     private CallCenter callCenter;
     private JFrame menupaciente;
     private Medico medico;
     private Especialista especialista;
     public String warning;
+    private JTextField campoidentificacion;
+    private JPasswordField campocontraseña;
+    private JLabel labelSeleccion;
 
     @SuppressWarnings("unused")
     public SolicitudCitas(CallCenter callCenter, JFrame menupaciente) {
         this.menupaciente = menupaciente;
         this.callCenter = callCenter;
         warning = "null";
+        seleccion = "";
 
         // Configuración de la ventana del menú del paciente
         setTitle("Solicitud de Citas");
-        setSize(400, 350);
+        setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new GridBagLayout()); // Usamos GridBagLayout para centrar los elementos
         setLocationRelativeTo(null); // Centrar en la pantalla
@@ -44,17 +48,28 @@ public class SolicitudCitas extends JFrame {
         panel.add(etiquetaTitulo, gbc);
 
         // Campo para la identificacion
-        JLabel etiquetaidentificacion = new JLabel("Identificacion");
+        JLabel etiquetaidentificacion = new JLabel("Identificación");
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         panel.add(etiquetaidentificacion, gbc);
 
-        JTextField campoidentificacion = new JTextField(5);
+        campoidentificacion = new JTextField(5);
         gbc.gridx = 1;
         panel.add(campoidentificacion, gbc);
 
+        // Campo para la contraseña
+        JLabel etiquetacontraseña = new JLabel("Contraseña");
+        gbc.gridy = 2;
+        gbc.gridx = -1;
+        gbc.gridwidth = 1;
+        panel.add(etiquetacontraseña, gbc);
+
+        campocontraseña = new JPasswordField(15);
+        gbc.gridx = 1;
+        panel.add(campocontraseña, gbc);
+
         // Crear un JLabel para mostrar la opción seleccionada
-        JLabel labelSeleccion = new JLabel("Opción seleccionada: Ninguna");
+        labelSeleccion = new JLabel("Opción seleccionada: Ninguna");
         gbc.gridy = 3;
         gbc.gridx = -1;
         gbc.gridwidth = 0;
@@ -62,14 +77,14 @@ public class SolicitudCitas extends JFrame {
 
         // Crear un botón para Generar Cita
         JButton botonGenerarCita = new JButton("Generar Cita");
-        gbc.gridy = 0;
+        gbc.gridy = 10;
         gbc.gridx = 0;
         gbc.gridwidth = 0;
         add(botonGenerarCita, gbc);
 
         // Crear un botón para abrir la ventana de selección
         JButton botonAbrir = new JButton("Seleccione su requerimiento");
-        gbc.gridy = 6;
+        gbc.gridy = 0;
         gbc.gridx = 0;
         gbc.gridwidth = 0;
         add(botonAbrir, gbc);
@@ -124,81 +139,134 @@ public class SolicitudCitas extends JFrame {
 
         add(panel);
 
-        // Darle funcion al boton Registrarse
+        // Darle funcion al boton Generar Cita
         botonGenerarCita.addActionListener(e -> {
             // Optener el texto del campo de texto
-            identificapaciente = campoidentificacion.getText();
+            String identificapaciente = campoidentificacion.getText();
+            char[] entradacontraseña = campocontraseña.getPassword();
+            String identificacontraseña = new String(entradacontraseña);
+            boolean revisioncontraseña = false;
+
+            System.out.println("Paciente ingresado es: " + identificapaciente);
+            System.out.println("Contraseña ingresada es: " + identificacontraseña);
 
             // Almacenar en una variable
 
-            if (!identificapaciente.isEmpty()) {
+            if (!identificapaciente.isEmpty() && !identificacontraseña.isEmpty() && seleccion != "") {
 
-                System.out.println("Paciente ingresado es: " + identificapaciente);
-                Paciente paciente = BuscarPaciente(identificapaciente);
+                paciente = BuscarPaciente(identificapaciente); // Metodo que busca paciente en lista de pacientes
 
-                if (seleccion.equals("Medicina General")) {
-                    medico = SeleccionarMedico(seleccion);
-                    especialista = new Especialista("", "", "", "", "", "", "", "");
-                    if (medico.Nombre.isEmpty()) {
-                        warning = "error";
-                    }
-                } else {
-                    especialista = SeleccionarEspecialista(seleccion);
-                    medico = new Medico("", "", "", "", "", "", "");
-                    if (especialista.Nombre.isEmpty()) {
-                        warning = "error";
-                    }
-                }
+                if (!paciente.Documento.isEmpty()) {
 
-                if (paciente.Documento.isEmpty() || warning.equals("error") || !callCenter.getListaCitas().isEmpty() ) {
-                    if (paciente.Documento.isEmpty()) {
-                        System.out.println(" No se puede generar la cita porque el paciente no existe");
-                        JOptionPane.showMessageDialog(menupaciente,
-                                "No se puede generar la cita porque el paciente no existe. Regístrese en el menú anterior",
-                                "Advertencia", JOptionPane.WARNING_MESSAGE);
-                    } else if (warning.equals("error")) {
-                        System.out.println(" No se puede generar porque no hay medicos disponibles");
-                        JOptionPane.showMessageDialog(menupaciente,
-                                "No se puede generar porque no hay medicos disponibles",
-                                "Advertencia", JOptionPane.WARNING_MESSAGE);
-                    } else if (!callCenter.getListaCitas().isEmpty()) {
-                        Cita revision = new Cita("", "", "", seleccion, medico, especialista, paciente);
-                        for (int i = 0; i < callCenter.getListaCitas().size(); i++)
-                            revision = callCenter.getListaCitas().get(i);
-                        if (revision.getPaciente().Documento.equals(identificapaciente)) {
-                            if (revision.getArea().equals(seleccion)) {
-                                System.out.println(" No se puede generar la cita porque el paciente ya tiene una cita asignada");
+                    revisioncontraseña = checkcontraseña(identificacontraseña, paciente); // Metodo que chequea
+                                                                                          // contraseña de paciente
+                    if (revisioncontraseña) {
+
+                        if (seleccion.equals("Medicina General")) { // Seleccion de medico medicina general
+                            medico = SeleccionarMedico();
+                            especialista = new Especialista("", "", "", "", "", "", "", "");
+                            if (medico.Nombre.isEmpty()) {
+                                warning = "error medico";
+                                System.out.println(" No se puede generar porque no hay medicos disponibles");
                                 JOptionPane.showMessageDialog(menupaciente,
-                                        "No se puede generar la cita porque el paciente ya tiene una cita asignada",
+                                        "No se puede generar porque no hay medicos disponibles",
                                         "Advertencia", JOptionPane.WARNING_MESSAGE);
+                                resetcampos();
+                            }
+                        } else {
+                            especialista = SeleccionarEspecialista(seleccion); // Seleccion medico especialista
+                            medico = new Medico("", "", "", "", "", "", "");
+                            if (especialista.Nombre.isEmpty()) {
+                                warning = "error especialista";
+                                System.out.println(" No se puede generar porque no hay especialista disponibles");
+                                JOptionPane.showMessageDialog(menupaciente,
+                                        "No se puede generar porque no hay medicos disponibles",
+                                        "Advertencia", JOptionPane.WARNING_MESSAGE);
+                                resetcampos();
                             }
                         }
+                        if (!callCenter.getListaCitas().isEmpty()) {
+                            
+                            System.out.println("Revision de cita paciente");
+                            Cita cita = new Cita("", "", "", seleccion, medico, especialista, paciente);
+                            Cita revision = cita;
+                            boolean confirm= false;
+                            for (int i = 0; i < callCenter.getListaCitas().size(); i++) {
+                                revision = callCenter.getListaCitas().get(i);
+                                
+                                if (revision.getPaciente().Documento.equals(identificapaciente)) {
+                                    System.out.println("Encontro paciente en citas");
+                                    if (revision.getArea().equals(seleccion)) {
+                                        System.out.println(
+                                                " No se puede generar la cita porque el paciente ya tiene una cita asignada");
+                                        JOptionPane.showMessageDialog(menupaciente,
+                                                "No se puede generar la cita porque el paciente ya tiene una cita asignada",
+                                                "Advertencia", JOptionPane.WARNING_MESSAGE);
+                                                confirm=true;
+                                       resetcampos();
+                                       break;
+                                    }
+                                }
+                            }
+                            System.out.println(""+confirm);
+                            if (confirm ==false){
+                                GeneraCita(cita);
+                            }
+
+                        }else{
+                            System.out.println(" Se ha generado una nueva cita con:" + seleccion);
+                            System.out.println("Medico:" + medico.Nombre);
+                            System.out.println("Especialista:" + especialista.Nombre);
+                            System.out.println("");
+                            Cita cita = new Cita("", "", "", seleccion, medico, especialista, paciente);
+                            GeneraCita(cita);
+                            
+                        }
+                        
+
+                    } else {
+
+                        System.out.println(" Contraseña incorrecta");
+                        JOptionPane.showMessageDialog(menupaciente,
+                                "Contraseña incorrecta",
+                                "Advertencia", JOptionPane.WARNING_MESSAGE);
+                        resetcampos();
+
                     }
 
-                } else {
+                    
 
-                    System.out.println(" Se ha generado una nueva cita con:" + seleccion);
-                    System.out.println("Medico:" + medico.Nombre);
-                    System.out.println("Especialista:" + especialista.Nombre);
-                    System.out.println("");
-                    Cita cita = new Cita("", "", "", seleccion, medico, especialista, paciente);
-                    callCenter.agregarCita(cita);
-                    medico.setEstado("No Disponible");
-                    especialista.setEstado("No Disponible");
-                    JOptionPane.showMessageDialog(menupaciente, "Cita creada con exito", "Mensaje",
-                            JOptionPane.WARNING_MESSAGE);
+                } else {
+                    System.out.println(" No se puede generar la cita porque el paciente no existe");
+                    JOptionPane.showMessageDialog(menupaciente,
+                            "No se puede generar la cita porque el paciente no existe. Regístrese en el menú anterior",
+                            "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    resetcampos();
                 }
+
+                System.out.println("check contraseña es: " + revisioncontraseña);
+                System.out.println("Entro");
+                System.out.println("warning es :" + warning);
+                System.out.println("indentifica es :" + identificapaciente);
+                System.out.println("contraseña es :" + identificacontraseña);
+                System.out.println("seleccion es :" + seleccion);
+                System.out.println("paciente es :" + paciente);
+
             } else {
-                JOptionPane.showMessageDialog(menupaciente, "Ingrese su identificacion de Paciente", "Advertencia",
+                JOptionPane.showMessageDialog(menupaciente,
+                        "Ingrese su identificacion de Paciente y Contraseña, seleccione el tipo de servicio que requiere, si no se ha registrado, regístrese en el menu anterior",
+                        "Advertencia",
                         JOptionPane.WARNING_MESSAGE);
-                System.out.println("Ingrese su identificacion de Paciente");
+                System.out.println("Ingrese su identificacion de Paciente y Contraseña");
+                resetcampos();
             }
 
         });
+
     }
 
     private Paciente BuscarPaciente(String userId) {
-        Paciente respuesta = new Paciente("", "", "", "", "");
+        Paciente respuesta = new Paciente("", "", "", "", "", "");
         List<Paciente> users = callCenter.getListaPacientes();
 
         for (int i = 0; i < users.size(); i++) {
@@ -210,7 +278,20 @@ public class SolicitudCitas extends JFrame {
         return respuesta;
     }
 
-    private Medico SeleccionarMedico(String seleccion) {
+    private boolean checkcontraseña(String identificacontraseña, Paciente paciente) {
+        System.out.println("contraseña pacientes es: " + paciente.getContraseña());
+        boolean respuesta = false;
+        if (!identificacontraseña.isEmpty()) {
+            if (identificacontraseña.equals(paciente.getContraseña())) {
+                respuesta = true;
+                return respuesta;
+            } else
+                return false;
+        }
+        return respuesta;
+    }
+
+    private Medico SeleccionarMedico() {
         Medico respuesta = new Medico("", "", "", "", "", "", "");
         List<Medico> medicos = callCenter.getListaMedicos();
 
@@ -218,8 +299,10 @@ public class SolicitudCitas extends JFrame {
             Medico medico = medicos.get(i);
             if (medico.getEstado().equals("Disponible")) {
                 respuesta = medico;
+                break;
             }
         }
+        System.out.println("medico: " + respuesta.Nombre);
         return respuesta;
     }
 
@@ -236,5 +319,21 @@ public class SolicitudCitas extends JFrame {
             }
         }
         return respuesta;
+    }
+
+    private void resetcampos(){
+        campoidentificacion.setText("");
+        campocontraseña.setText("");
+        seleccion = "";
+        labelSeleccion.setText("Opción seleccionada: " + seleccion);
+    } 
+
+    private void GeneraCita(Cita cita){
+        callCenter.agregarCita(cita);
+        medico.setEstado("No Disponible");
+        especialista.setEstado("No Disponible");
+        JOptionPane.showMessageDialog(menupaciente, "Cita creada con exito", "Mensaje",
+                JOptionPane.WARNING_MESSAGE);
+        resetcampos();
     }
 }

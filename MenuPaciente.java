@@ -63,7 +63,7 @@ public class MenuPaciente extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //if (e.getSource() == openThirdButton) {
+        
             if (e.getSource() == botonRegistrarse) {
             // Crear y mostrar la tercera ventana
             RegistroPaciente registropaciente = new RegistroPaciente(callCenter,MenuPaciente.this);
@@ -72,7 +72,7 @@ public class MenuPaciente extends JFrame implements ActionListener {
             setVisible(false);
         }else if(e.getSource() == botonSolicitudCitas) {
             
-            // Mostrar el menú del admisionista y esconder esta ventana
+            // Mostrar el menú de Solicitar Citas y esconder esta ventana
             SolicitudCitas solicitudcitas = new SolicitudCitas(callCenter, MenuPaciente.this);
             solicitudcitas.setVisible(true);
             setVisible(false);
@@ -84,7 +84,7 @@ public class MenuPaciente extends JFrame implements ActionListener {
             setVisible(false);
         }else if(e.getSource() == botonActualizacionDatos) {
             
-            // Mostrar el menú del admisionista y esconder esta ventana
+            // Mostrar el menú de Actualizar Datos y esconder esta ventana
             ActualizacionDatos actualizaciondatos = new ActualizacionDatos(this);
             actualizaciondatos.setVisible(true);
             setVisible(false);

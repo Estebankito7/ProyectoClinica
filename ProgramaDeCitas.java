@@ -8,12 +8,22 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
     private JButton botonAdmisionista;
     private JButton botonlistaPacientes;
     private JButton botonlistaCitas;
+    private JButton botonlistaMedicos;
+    private JButton botonlistaEspecialistas;
     private JLabel titulo;
     private CallCenter callCenter;
 
     public ProgramaDeCitas() {
-        // this.callcenter = callcenter;
+        // Crear una instancia de CallCenter
+        
         callCenter = new CallCenter();
+        callCenter.AgregarListaMedicos();
+        callCenter.AgregarListaEspecialistas();
+        
+        // Inicializar los usuarios de Admisionista
+        Admisionista.inicializarUsuarios(); // Llamar a este método para crear usuarios predefinidos
+
+        
         // Configuración de la ventana
         setTitle("Programa de citas");
         setSize(400, 200);
@@ -37,27 +47,31 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
         botonAdmisionista = new JButton("Admisionista");
         botonlistaPacientes = new JButton("Lista de Pacientes");
         botonlistaCitas = new JButton("Lista de Citas");
+        botonlistaMedicos = new JButton("Lista de Medicos");
+        botonlistaEspecialistas = new JButton("Lista de Especialistas");
 
         // Agregar listeners a los botones
         botonPaciente.addActionListener(this);
         botonAdmisionista.addActionListener(this);
         botonlistaPacientes.addActionListener(this);
         botonlistaCitas.addActionListener(this);
+        botonlistaMedicos.addActionListener(this);
+        botonlistaEspecialistas.addActionListener(this);
 
         // Agregar los botones al panel de botones
         panelBotones.add(botonPaciente);
         panelBotones.add(botonAdmisionista);
         panelBotones.add(botonlistaPacientes);
         panelBotones.add(botonlistaCitas);
+        panelBotones.add(botonlistaMedicos);
+        panelBotones.add(botonlistaEspecialistas);
 
         // Agregar el panel de botones en el centro
         add(panelBotones, BorderLayout.CENTER);
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // if (e.getSource() == openSecondButton) {
         if (e.getSource() == botonPaciente) {
             // Crear y mostrar la segunda ventana
             MenuPaciente menupaciente = new MenuPaciente(callCenter, ProgramaDeCitas.this);
@@ -65,36 +79,49 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
             // Ocultar la ventana principal
             setVisible(false);
         } else if (e.getSource() == botonAdmisionista) {
-
             // Mostrar el menú del admisionista y esconder esta ventana
             MenuAdmisionista menuadmisionista = new MenuAdmisionista(this);
             menuadmisionista.setVisible(true);
             setVisible(false);
         } else if (e.getSource() == botonlistaPacientes) {
-
-            // Mostrar el menú del admisionista y esconder esta ventana
-
+            // Mostrar lista de pacientes
             List<Paciente> users = callCenter.getListaPacientes();
-            if (users.size() == 0) {
+            if (users.isEmpty()) {
                 System.out.println("No hay usuarios para mostrar");
             }
             for (int i = 0; i < users.size(); i++) {
-                System.out.print("" + (i + 1));
+                System.out.println("" + (i + 1));
                 users.get(i).Imprimir();
-
             }
         } else if (e.getSource() == botonlistaCitas) {
-
-            // Mostrar el menú del admisionista y esconder esta ventana
-
+            // Mostrar lista de citas
             List<Cita> citas = callCenter.getListaCitas();
-            if (citas.size() == 0) {
+            if (citas.isEmpty()) {
                 System.out.println("No hay citas para mostrar");
             }
             for (int i = 0; i < citas.size(); i++) {
-                System.out.print("" + (i + 1));
+                System.out.println("" + (i + 1));
                 citas.get(i).Imprimir();
-
+            }
+        } else if (e.getSource() == botonlistaMedicos) {
+            // Mostrar lista de médicos
+            List<Medico> medicos = callCenter.getListaMedicos();
+            if (medicos.isEmpty()) {
+                System.out.println("No hay médicos para mostrar");
+            }
+            for (int i = 0; i < medicos.size(); i++) {
+                System.out.println("" + (i + 1));
+                medicos.get(i).Imprimir();
+            }
+        } else if (e.getSource() == botonlistaEspecialistas) {
+            // Mostrar lista de especialistas
+            List<Especialista> especialistas = callCenter.getListaEspecialistas();
+            if (especialistas.isEmpty()) {
+                System.out.println("No hay especialistas para mostrar");
+            }
+            for (int i = 0; i < especialistas.size(); i++) {
+                System.out.println("" + (i + 1));
+                especialistas.get(i).Imprimir();
             }
         }
     }

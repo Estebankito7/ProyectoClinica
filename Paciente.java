@@ -23,18 +23,16 @@ public class Paciente extends Persona {
     public void setContraseña(String contraseña) {
         Contraseña = contraseña;
     }
+
     public void Imprimir() {
-        System.out.println("**********");
-        System.out.println(Nombre);
-        System.out.println(Documento);
-        System.out.println(Telefono);
-        System.out.println(Direccion);
-        System.out.println(Correo);
-        System.out.println("**********");
-        System.out.println("");
-
-}
-
-    
+        System.out.println("****************************");
+        System.out.println("Datos del Paciente:");
+        System.out.println("Nombre: " + Nombre);
+        System.out.println("Documento: " + Documento);
+        System.out.println("Teléfono: " + Telefono);
+        System.out.println("Dirección: " + Direccion);
+        System.out.println("Correo: " + Correo);
+        System.out.println("****************************\n");
+    }
 
 }

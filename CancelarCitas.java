@@ -1,6 +1,6 @@
-
 import javax.swing.*;
 import java.awt.*;
+import java.util.Iterator;
 import java.awt.event.*;
 
 public class CancelarCitas extends JFrame {
@@ -9,32 +9,39 @@ public class CancelarCitas extends JFrame {
 
         // Configuración de la ventana del menú del paciente
         setTitle("Cancelar Citas");
-        setSize(400, 200);
+        setSize(400, 250);  // Aumenta ligeramente el tamaño para acomodar el ComboBox
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        //Panel del titulo
+        // Panel del título
         JPanel titlePanel = new JPanel();
         JLabel titleLabel = new JLabel("Cancelar Cita");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         titlePanel.add(titleLabel);
 
-        //Panel del formulario
+        // Panel del formulario
         JPanel formPanel = new JPanel();
-        formPanel.setLayout(new GridLayout(2, 2, 10, 10));
+        formPanel.setLayout(new GridLayout(3, 2, 10, 10));  // Cambiado a 3 filas
 
         JLabel idLabel = new JLabel("Identificación:");
         JTextField idField = new JTextField();
         JLabel passwordLabel = new JLabel("Contraseña:");
         JPasswordField passwordField = new JPasswordField();
 
+        // Agregar el JComboBox
+        JLabel serviceLabel = new JLabel("Especialidad:");
+        String[] opciones = { "Medicina General", "Odontología", "Optometría", "Pediatría" };
+        JComboBox<String> comboBox = new JComboBox<>(opciones);
+
         formPanel.add(idLabel);
         formPanel.add(idField);
         formPanel.add(passwordLabel);
         formPanel.add(passwordField);
+        formPanel.add(serviceLabel);  // Etiqueta del ComboBox
+        formPanel.add(comboBox);      // ComboBox
 
-        //Panel para el botón 
+        // Panel para el botón
         JPanel buttonPanel = new JPanel();
         JButton cancelButton = new JButton("Cancelar Cita");
         cancelButton.setBackground(Color.RED);
@@ -59,12 +66,17 @@ public class CancelarCitas extends JFrame {
                 // Obtener el texto de los campos de entrada
                 String identificacion = idField.getText();
                 String password = new String(passwordField.getPassword());
+                String especialidad = (String) comboBox.getSelectedItem();  // Obtener la especialidad seleccionada
 
-                for( Cita cita : callCenter.getListaCitas() ){
+                Iterator<Cita> iterator = callCenter.getListaCitas().iterator();
+                while (iterator.hasNext()) {
+                    Cita cita = iterator.next();
                     System.out.println(cita.getPaciente().getDocumento().equals(identificacion));
-                    if(cita.getPaciente().getDocumento().equals(identificacion)){
+                    if (cita.getPaciente().getDocumento().equals(identificacion) && cita.getPaciente().getContraseña().equals(password) && cita.getArea().equals(especialidad)) {
+                        iterator.remove();
                         callCenter.cancelarCita(callCenter, cita);
-                    } 
+                        System.out.println("Cita cancelada con exito.");
+                    }
                 }
             }
         });

@@ -1,4 +1,3 @@
-
 public class Paciente extends Persona {
 
     private String Codigo;

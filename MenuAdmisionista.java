@@ -7,17 +7,15 @@ public class MenuAdmisionista extends JFrame {
     private JPasswordField campoContrasena;
     private JButton botonIngresar;
     private JButton botonRegistrarse;
-    private CallCenter callCenter; // Referencia al CallCenter
 
+    @SuppressWarnings("unused")
     public MenuAdmisionista(JFrame programaDeCitas, CallCenter callCenter) {
-        this.callCenter = callCenter;
-
         // Configuración de la ventana
         setTitle("Menú Admisionista");
         setSize(300, 250);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new GridBagLayout());
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 
         // Crear un panel con diseño
         JPanel panel = new JPanel(new GridBagLayout());
@@ -67,6 +65,14 @@ public class MenuAdmisionista extends JFrame {
 
         add(panel);
 
+         // Acción al cerrar la ventana
+         addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                programaDeCitas.setVisible(true);
+            }
+        });
+
         // Acción para el botón "Ingresar"
         botonIngresar.addActionListener(e -> {
             String usuario = campoUsuario.getText();
@@ -78,7 +84,7 @@ public class MenuAdmisionista extends JFrame {
                 
                 // Abrir el menú de opciones del admisionista
                 new MenuOpcionesAdmisionista(callCenter, programaDeCitas).setVisible(true);
-                dispose();
+                //dispose();
             } else {
                 JOptionPane.showMessageDialog(MenuAdmisionista.this, "Credenciales incorrectas. Intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -92,12 +98,6 @@ public class MenuAdmisionista extends JFrame {
         });
         
 
-        // Acción al cerrar la ventana
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                programaDeCitas.setVisible(true);
-            }
-        });
+       
     }
 }

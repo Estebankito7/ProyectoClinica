@@ -2,8 +2,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class SolicitudCitas extends JFrame {
@@ -25,7 +23,7 @@ public class SolicitudCitas extends JFrame {
         warning = "null";
         seleccion = "";
 
-        // Configuración de la ventana del menú del paciente
+        // Configuración de la ventana del menú de Solicitud paciente
         setTitle("Solicitud de Citas");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -328,13 +326,13 @@ public class SolicitudCitas extends JFrame {
     } 
 
     private void GeneraCita(Cita cita){
-        List<String> revisarcalendario = callCenter.getCalendario().getDiasHabiles();
         callCenter.agregarCita(cita);
         medico.setEstado("No Disponible");
         especialista.setEstado("No Disponible");
+        cita.ConfirmaCita();
         JOptionPane.showMessageDialog(menupaciente, "Cita creada con exito", "Mensaje",
-                     JOptionPane.WARNING_MESSAGE);
-                                System.out.println(""+revisarcalendario);
+                    JOptionPane.WARNING_MESSAGE);
+                             //   System.out.println(""+revisarcalendario);
         resetcampos();
     }
 }

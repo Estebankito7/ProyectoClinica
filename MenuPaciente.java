@@ -10,47 +10,56 @@ public class MenuPaciente extends JFrame implements ActionListener {
     private JButton botonCancelarCitas;
     private JButton botonActualizacionDatos;
     private CallCenter callCenter;
-    private JFrame programadecitas;
 
     public MenuPaciente(CallCenter callCenter, JFrame programadecitas) {
-       this.programadecitas = programadecitas;
-            this.callCenter= callCenter;
+       this.callCenter= callCenter;
 
         // Configuración de la ventana del menú del paciente
-        setTitle("Programa de Citas");
-        setSize(500, 250);
+        setTitle("Menu Paciente");
+        setSize(500, 200);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new GridLayout(5, 1, 10, 10)); // Mantener GridLayout con 5 filas
+        setLayout(new BorderLayout());
 
         // Centrar la ventana en la pantalla
         setLocationRelativeTo(null);
 
-        // Crear el texto de bienvenida
-        JLabel mensajeBienvenida = new JLabel("Bienvenido querido usuario, porfavor seleccione una opcion:",
-                SwingConstants.CENTER);
-        mensajeBienvenida.setFont(new Font("Arial", Font.BOLD, 14));
+         // Crear el texto de bienvenida
+         JLabel mensajeBienvenida = new JLabel("Bienvenido al menu de paciente, por favor seleccione una opcion:",SwingConstants.CENTER);
+         mensajeBienvenida.setFont(new Font("Arial", Font.BOLD, 14));
+         add(mensajeBienvenida,BorderLayout.NORTH);
+
+
+        // Crear el panel de botones
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(2,2,10,10));
 
         // Inicializar y configurar el botón
-        botonRegistrarse = new JButton("Registro");
-        botonRegistrarse.setBounds(50, 50, 200, 30);
-        botonRegistrarse.addActionListener(this);
+        botonRegistrarse = new JButton("Registro Paciente");
         botonSolicitudCitas = new JButton("Solicitud de citas");
-        botonSolicitudCitas.setBounds(50, 50, 200, 30);
-        botonSolicitudCitas.addActionListener(this);
         botonCancelarCitas = new JButton("Cancelar citas");
-        botonCancelarCitas.setBounds(50, 50, 200, 30);
-        botonCancelarCitas.addActionListener(this);
         botonActualizacionDatos = new JButton("Actualización Datos");
-        botonActualizacionDatos.setBounds(50, 50, 200, 30);
+
+        panel.add(botonRegistrarse);
+        panel.add(botonSolicitudCitas);
+        panel.add(botonCancelarCitas);
+        panel.add(botonActualizacionDatos);
+
+        // Añadir margenes al panel
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+         // Añadir el panel de botones al centro de la ventana
+         add(panel, BorderLayout.CENTER);
+
+
+        // Agregar listeners a los botones
+        botonRegistrarse.addActionListener(this);
+        botonSolicitudCitas.addActionListener(this);
+        botonCancelarCitas.addActionListener(this);
         botonActualizacionDatos.addActionListener(this);
 
-        // Agregar los elementos al panel con GridLayout
-        add(mensajeBienvenida); // Añadir el mensaje de bienvenida
-        add(botonRegistrarse);
-        add(botonSolicitudCitas);
-        add(botonCancelarCitas);
-        add(botonActualizacionDatos);
+        setVisible(true);
 
+        
         // Añadir un listener para detectar el cierre de la ventana
         addWindowListener(new WindowAdapter() {
             @Override

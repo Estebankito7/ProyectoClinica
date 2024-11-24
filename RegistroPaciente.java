@@ -1,26 +1,18 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class RegistroPaciente extends JFrame {
     private Paciente paciente;
-    private JFrame menupaciente;
-   // private String nombreregistro;
-   // private String documentoregistro;
-   // private String telefonoregistro;
-   // private String mailregistro;
-   // private String contraseñaregistro;
-    //private JPasswordField campocontraseña;
     private JButton botonRegistrarse;
     private CallCenter callCenter;
-    
 
-    @SuppressWarnings("unused") //Elimina advertencias
+    @SuppressWarnings("unused") // Elimina advertencias
     public RegistroPaciente(CallCenter callCenter, JFrame menupaciente) {
-       this.menupaciente = menupaciente;
-       this.callCenter= callCenter;
-       paciente = new Paciente("", "", "", "", "", "");
+        this.callCenter = callCenter;
+        paciente = new Paciente("", "", "", "", "", "");
 
         // Configuración de la ventana del menú del RegistroPaciente
         setTitle("Registro de Nuevo Paciente");
@@ -28,9 +20,6 @@ public class RegistroPaciente extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new GridBagLayout()); // Usamos GridBagLayout para centrar los elementos
         setLocationRelativeTo(null); // Centrar en la pantalla
-
-        // Centrar la ventana en la pantalla
-        setLocationRelativeTo(null);
 
         // Crear un panel con GridBagLayout para posicionar los elementos
         JPanel panel = new JPanel(new GridBagLayout());
@@ -126,7 +115,8 @@ public class RegistroPaciente extends JFrame {
 
         add(panel);
 
-        // Darle funcion al boton Registrarse
+        // Darle funcion al boton Registrarse, cuando presiona el boton crea el paciente
+        // si no existe en el listado
         botonRegistrarse.addActionListener(e -> {
             // Optener el texto del campo de texto
             paciente.Nombre = camponombre.getText();
@@ -137,9 +127,11 @@ public class RegistroPaciente extends JFrame {
             paciente.setContraseña(campocontraseña.getText());
 
             // Almacenar en una variable
-            
-            if (!paciente.Nombre.isEmpty() && !paciente.Correo.isEmpty() && !paciente.Documento.isEmpty() && !paciente.Telefono.isEmpty() && !paciente.Direccion.isEmpty() && !paciente.getContraseña().isEmpty()) {
-                
+
+            if (!paciente.Nombre.isEmpty() && !paciente.Correo.isEmpty() && !paciente.Documento.isEmpty()
+                    && !paciente.Telefono.isEmpty() && !paciente.Direccion.isEmpty()
+                    && !paciente.getContraseña().isEmpty()) {
+
                 System.out.println("Nombre ingresado es: " + paciente.Nombre);
                 System.out.println("Documento ingresado es: " + paciente.Documento);
                 System.out.println("Telefono ingresado es: " + paciente.Telefono);
@@ -147,19 +139,33 @@ public class RegistroPaciente extends JFrame {
                 System.out.println("mail ingresado es: " + paciente.Correo);
                 System.out.println("Contraseña ingresada es: " + paciente.getContraseña());
 
-                
-                JOptionPane.showMessageDialog(menupaciente, "Su registro fue creado con exito", "Mensaje",
+                Paciente revisapaciente = BuscarPaciente(paciente.Documento); // Metodo que busca paciente en lista de pacientes
+
+                if (revisapaciente.Documento.isEmpty()) {
+                    JOptionPane.showMessageDialog(menupaciente, "Su registro fue creado con exito", "Mensaje",
+                            JOptionPane.WARNING_MESSAGE);
+                    System.out.println("Se registro con exito");
+                    botonRegistrarse.setVisible(false);
+                    camponombre.setText("");
+                    campodocumento.setText("");
+                    campotelefono.setText("");
+                    campodireccion.setText("");
+                    campomail.setText("");
+                    campocontraseña.setText("");
+                    callCenter.agregarPaciente(paciente);
+
+                }else {
+                    JOptionPane.showMessageDialog(menupaciente, "El paciente ya existe", "Advertencia",
                         JOptionPane.WARNING_MESSAGE);
-                System.out.println("Se registro con exito");
-                botonRegistrarse.setVisible(false);
-                camponombre.setText("");
-                campodocumento.setText("");
-                campotelefono.setText("");
-                campodireccion.setText("");
-                campomail.setText("");
-                campocontraseña.setText("");
-                //Paciente paciente = new Paciente(nombreregistro, documentoregistro, null, null, mailregistro,contraseñaregistro);
-                callCenter.agregarPaciente(paciente);
+                System.out.println("El paciente ya existe");
+                    camponombre.setText("");
+                    campodocumento.setText("");
+                    campotelefono.setText("");
+                    campodireccion.setText("");
+                    campomail.setText("");
+                    campocontraseña.setText("");
+
+                }
 
             } else {
                 JOptionPane.showMessageDialog(menupaciente, "Algún campo está vacio", "Advertencia",
@@ -168,6 +174,19 @@ public class RegistroPaciente extends JFrame {
             }
 
         });
+    }
+
+    private Paciente BuscarPaciente(String userId) {
+        Paciente respuesta = new Paciente("", "", "", "", "", "");
+        List<Paciente> users = callCenter.getListaPacientes();
+
+        for (int i = 0; i < users.size(); i++) {
+            Paciente revision = users.get(i);
+            if (revision.Documento.equals(userId)) {
+                respuesta = revision;
+            }
+        }
+        return respuesta;
     }
 
 }

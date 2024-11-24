@@ -16,6 +16,7 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
         callCenter = new CallCenter();
         callCenter.AgregarListaMedicos();
         callCenter.AgregarListaEspecialistas();
+        callCenter.inicializarAdmisionistas();
 
         // Configuración de la ventana
         setTitle("Programa de citas");
@@ -93,10 +94,11 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            ProgramaDeCitas programa = new ProgramaDeCitas();
-            programa.setVisible(true);
-        });
-    }
+   
+   // public static void main(String[] args) {
+   //     SwingUtilities.invokeLater(() -> {
+   //         ProgramaDeCitas programa = new ProgramaDeCitas();
+   //         programa.setVisible(true);
+   //     });
+   // }
 }

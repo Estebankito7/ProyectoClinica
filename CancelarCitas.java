@@ -24,6 +24,10 @@ public class CancelarCitas extends JFrame {
         JPanel formPanel = new JPanel();
         formPanel.setLayout(new GridLayout(3, 2, 10, 10));  // Cambiado a 3 filas
 
+        // Añadir margenes al panel
+        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+
         JLabel idLabel = new JLabel("Identificación:");
         JTextField idField = new JTextField();
         JLabel passwordLabel = new JLabel("Contraseña:");
@@ -75,6 +79,8 @@ public class CancelarCitas extends JFrame {
                     if (cita.getPaciente().getDocumento().equals(identificacion) && cita.getPaciente().getContraseña().equals(password) && cita.getArea().equals(especialidad)) {
                         iterator.remove();
                         callCenter.cancelarCita(callCenter, cita);
+                        JOptionPane.showMessageDialog(menupaciente, "Cita Cancelada con exito", "Mensaje",
+                        JOptionPane.WARNING_MESSAGE);
                         System.out.println("Cita cancelada con exito.");
                     }
                 }

@@ -1,4 +1,11 @@
-public class Cita {
+import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+
+public class Cita extends JFrame {
 
     private String fecha;
     private String hora;
@@ -7,9 +14,10 @@ public class Cita {
     private Medico medico;
     private Paciente paciente;
     private Especialista especialista;
-
     // Constructor
-    public Cita(String fecha, String hora, String consultorio,String area, Medico medico,Especialista especialista, Paciente paciente) {
+    public Cita(String fecha, String hora, String consultorio, String area, Medico medico, Especialista especialista,
+            Paciente paciente) {
+
         this.fecha = fecha;
         this.hora = hora;
         this.consultorio = consultorio;
@@ -55,10 +63,10 @@ public class Cita {
         return paciente;
     }
 
-
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
+
     public String getArea() {
         return area;
     }
@@ -99,5 +107,52 @@ public class Cita {
         System.out.println("");
 
     }
-   
+public void ConfirmaCita (){
+    String fechaCita = "2024-11-25";
+    String horaCita = "10:00 AM";
+
+    // Crear el mensaje con los datos del paciente
+    String mensaje = "<html>Datos de la Cita:<br>" +
+            "    Paciente: " + paciente.Nombre + "<br>" +
+            "    Fecha: " + fechaCita + "<br>" +
+            "    Hora: " + horaCita + "<br>" +
+            "    Doctor: " + medico.Nombre + "<br>" +
+            "    Especialista: " + especialista.Nombre + "</html>";
+
+    // Configuración de la ventana de Confirmacion de cita
+
+            setTitle("Cita generada con exito");
+            setSize(300, 300);
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            setLayout(new GridBagLayout()); // Usamos GridBagLayout para centrar los elementos
+            setLocationRelativeTo(null); // Centrar en la pantalla
+
+            // Centrar la ventana en la pantalla
+            setLocationRelativeTo(null);
+
+            // Crear un panel con GridBagLayout para posicionar los elementos
+            JPanel panel = new JPanel(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(10, 10, 10, 10); // Margen entre los elementos
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+
+            // Etiqueta de instrucciones
+            JLabel etiquetaTitulo = new JLabel("Cita generada con exito", SwingConstants.CENTER);
+            etiquetaTitulo.setFont(new Font("Arial", Font.BOLD, 14));
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            gbc.gridwidth = 2;
+            panel.add(etiquetaTitulo, gbc);
+
+            JLabel nuevacita = new JLabel(mensaje);
+            gbc.gridy = 1;
+            gbc.gridwidth = 0;
+            panel.add(nuevacita, gbc);
+
+            // Mostrar la ventana
+            setVisible(true);
+            add(panel);
+
+}
+
 }

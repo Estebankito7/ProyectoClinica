@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.List;
 
 public class MenuOpcionesAdmisionista extends JFrame {
@@ -9,11 +8,9 @@ public class MenuOpcionesAdmisionista extends JFrame {
     private JButton botonVerMedicos;
     private JButton botonVerEspecialistas;
     private JButton botonCerrarSesion;
-    private CallCenter callCenter;
 
-    public MenuOpcionesAdmisionista(CallCenter callCenter, JFrame menuAnterior) {
-        this.callCenter = callCenter;
-
+    @SuppressWarnings("unused")
+    public MenuOpcionesAdmisionista(CallCenter callCenter, JFrame programacitas) {
         // Configuración de la ventana
         setTitle("Menú de Opciones Admisionista");
         setSize(400, 300);
@@ -99,7 +96,7 @@ public class MenuOpcionesAdmisionista extends JFrame {
         // Botón para cerrar sesión y volver al menú anterior
         botonCerrarSesion = new JButton("Cerrar Sesión");
         botonCerrarSesion.addActionListener(e -> {
-            menuAnterior.setVisible(true);
+            programacitas.setVisible(true);
             dispose();
         });
         gbc.gridy = 4; // Fila 4

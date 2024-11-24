@@ -34,7 +34,7 @@ public class Admisionista extends Persona {
         } else {
             System.out.println("=== Lista de Citas ===");
             for (Cita cita : citas) {
-                System.out.println(cita);
+                cita.Imprimir();
             }
         }
     }

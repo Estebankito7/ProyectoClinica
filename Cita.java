@@ -95,18 +95,18 @@ public class Cita extends JFrame {
     }
 
     public void Imprimir() {
-        System.out.println("**********");
-        System.out.println(fecha);
-        System.out.println(hora);
-        System.out.println(consultorio);
-        System.out.println(area);
-        System.out.println(medico.Nombre);
-        System.out.println(especialista.Nombre);
-        System.out.println(paciente.Nombre);
-        System.out.println("**********");
-        System.out.println("");
-
+        System.out.println("********** Detalles de la Cita **********");
+        System.out.println("Fecha: " + fecha);
+        System.out.println("Hora: " + hora);
+        System.out.println("Consultorio: " + consultorio);
+        System.out.println("Área: " + area);
+        System.out.println("Médico: " + medico.Nombre);
+        System.out.println("Especialista: " + especialista.Nombre);
+        System.out.println("Paciente: " + paciente.Nombre);
+        System.out.println("*****************************************");
+        System.out.println();        
     }
+
 public void ConfirmaCita (){
     String fechaCita = "2024-11-25";
     String horaCita = "10:00 AM";

@@ -94,7 +94,7 @@ public class MenuPaciente extends JFrame implements ActionListener {
         }else if(e.getSource() == botonActualizacionDatos) {
             
             // Mostrar el menú de Actualizar Datos y esconder esta ventana
-            ActualizacionDatos actualizaciondatos = new ActualizacionDatos(this);
+            ActualizacionDatos actualizaciondatos = new ActualizacionDatos(this, callCenter);
             actualizaciondatos.setVisible(true);
             setVisible(false);
         }

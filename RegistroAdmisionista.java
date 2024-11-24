@@ -8,16 +8,20 @@ public class RegistroAdmisionista extends JFrame {
     private JTextField campoDocumento;
     private JTextField campoCorreo;
     private JTextField campoClave;
+    private JTextField campoUsuario;
+    private JPasswordField campoContraseña;
     private JButton botonRegistrar;
     private JFrame menuAdmisionista;
+    private CallCenter callCenter;
 
     private static final String CLAVE_ESPECIFICA = "890303461";
 
-    public RegistroAdmisionista(JFrame menuAdmisionista) {
+    public RegistroAdmisionista(JFrame menuAdmisionista, CallCenter callCenter) {
         this.menuAdmisionista = menuAdmisionista;
+        this.callCenter = callCenter;
 
         setTitle("Registro de Admisionista");
-        setSize(400, 300);
+        setSize(400, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new GridBagLayout());
         setLocationRelativeTo(null);
@@ -68,9 +72,26 @@ public class RegistroAdmisionista extends JFrame {
         gbc.gridx = 1;
         panel.add(campoCorreo, gbc);
 
-        // Campo para la clave específica (890303461)
-        JLabel etiquetaClave = new JLabel("Clave IPS:");
+        JLabel etiquetaUsuario = new JLabel("Usuario:");
         gbc.gridy = 4;
+        gbc.gridx = 0;
+        panel.add(etiquetaUsuario, gbc);
+
+        campoUsuario = new JTextField(15);
+        gbc.gridx = 1;
+        panel.add(campoUsuario, gbc);
+
+        JLabel etiquetaContraseña = new JLabel("Contraseña:");
+        gbc.gridy = 5;
+        gbc.gridx = 0;
+        panel.add(etiquetaContraseña, gbc);
+
+        campoContraseña = new JPasswordField(15);
+        gbc.gridx = 1;
+        panel.add(campoContraseña, gbc);
+
+        JLabel etiquetaClave = new JLabel("Clave IPS:");
+        gbc.gridy = 6;
         gbc.gridx = 0;
         panel.add(etiquetaClave, gbc);
 
@@ -79,11 +100,10 @@ public class RegistroAdmisionista extends JFrame {
         panel.add(campoClave, gbc);
 
         botonRegistrar = new JButton("Registrar");
-        gbc.gridy = 5;
+        gbc.gridy = 7;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
         panel.add(botonRegistrar, gbc);
-
 
         add(panel);
 
@@ -91,71 +111,28 @@ public class RegistroAdmisionista extends JFrame {
             String nombre = campoNombre.getText();
             String documento = campoDocumento.getText();
             String correo = campoCorreo.getText();
+            String usuario = campoUsuario.getText();
+            String contraseña = new String(campoContraseña.getPassword());
             String clave = campoClave.getText();
 
-            if (nombre.isEmpty() || documento.isEmpty() || correo.isEmpty() || clave.isEmpty()) {
+            if (nombre.isEmpty() || documento.isEmpty() || correo.isEmpty() || usuario.isEmpty() || contraseña.isEmpty() || clave.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
             } else if (!clave.equals(CLAVE_ESPECIFICA)) {
                 JOptionPane.showMessageDialog(this, "La clave ingresada es incorrecta.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
+                Admisionista nuevoAdmisionista = new Admisionista(nombre, documento, "N/A", "N/A", correo, usuario, contraseña);
+                callCenter.agregarAdmisionista(nuevoAdmisionista);
+
                 JOptionPane.showMessageDialog(this, "Admisionista registrado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 campoNombre.setText("");
                 campoDocumento.setText("");
                 campoCorreo.setText("");
+                campoUsuario.setText("");
+                campoContraseña.setText("");
                 campoClave.setText("");
+                menuAdmisionista.setVisible(true);
+                dispose();
             }
         });
     }
-public JTextField getCampoNombre() {
-    return campoNombre;
-}
-
-public void setCampoNombre(JTextField campoNombre) {
-    this.campoNombre = campoNombre;
-}
-
-public JTextField getCampoDocumento() {
-    return campoDocumento;
-}
-
-public void setCampoDocumento(JTextField campoDocumento) {
-    this.campoDocumento = campoDocumento;
-}
-
-public JTextField getCampoCorreo() {
-    return campoCorreo;
-}
-
-public void setCampoCorreo(JTextField campoCorreo) {
-    this.campoCorreo = campoCorreo;
-}
-
-public JTextField getCampoClave() {
-    return campoClave;
-}
-
-public void setCampoClave(JTextField campoClave) {
-    this.campoClave = campoClave;
-}
-
-public JButton getBotonRegistrar() {
-    return botonRegistrar;
-}
-
-public void setBotonRegistrar(JButton botonRegistrar) {
-    this.botonRegistrar = botonRegistrar;
-}
-
-public JFrame getMenuAdmisionista() {
-    return menuAdmisionista;
-}
-
-public void setMenuAdmisionista(JFrame menuAdmisionista) {
-    this.menuAdmisionista = menuAdmisionista;
-}
-
-public static String getClaveEspecifica() {
-    return CLAVE_ESPECIFICA;
-}
-
 }

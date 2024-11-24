@@ -3,23 +3,26 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MenuAdmisionista extends JFrame {
-    private JTextField campoClave;
+    private JTextField campoUsuario;
     private JPasswordField campoContrasena;
     private JButton botonIngresar;
     private JButton botonRegistrarse;
+    private CallCenter callCenter; // Referencia al CallCenter
 
-    public MenuAdmisionista(JFrame programadecitas) {
-        // Configuración de la ventana del menú del admisionista
+    public MenuAdmisionista(JFrame programaDeCitas, CallCenter callCenter) {
+        this.callCenter = callCenter;
+
+        // Configuración de la ventana
         setTitle("Menú Admisionista");
         setSize(300, 250);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new GridBagLayout()); // Usamos GridBagLayout para centrar los elementos
-        setLocationRelativeTo(null); // Centrar en la pantalla
+        setLayout(new GridBagLayout());
+        setLocationRelativeTo(null);
 
-        // Crear un panel con GridBagLayout para posicionar los elementos
+        // Crear un panel con diseño
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5); 
+        gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Etiqueta de instrucciones
@@ -30,15 +33,15 @@ public class MenuAdmisionista extends JFrame {
         gbc.gridwidth = 2;
         panel.add(etiquetaTitulo, gbc);
 
-        // Campo para la clave (usuario)
-        JLabel etiquetaClave = new JLabel("Usuario:");
+        // Campo para el usuario
+        JLabel etiquetaUsuario = new JLabel("Usuario:");
         gbc.gridy = 1;
         gbc.gridwidth = 1;
-        panel.add(etiquetaClave, gbc);
+        panel.add(etiquetaUsuario, gbc);
 
-        campoClave = new JTextField(15);
+        campoUsuario = new JTextField(15);
         gbc.gridx = 1;
-        panel.add(campoClave, gbc);
+        panel.add(campoUsuario, gbc);
 
         // Campo para la contraseña
         JLabel etiquetaContrasena = new JLabel("Contraseña:");
@@ -61,36 +64,39 @@ public class MenuAdmisionista extends JFrame {
         botonRegistrarse = new JButton("Registrarse");
         gbc.gridy = 4;
         panel.add(botonRegistrarse, gbc);
+
         add(panel);
 
+        // Acción para el botón "Ingresar"
+        botonIngresar.addActionListener(e -> {
+            String usuario = campoUsuario.getText();
+            String contraseña = new String(campoContrasena.getPassword());
 
-        botonIngresar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String usuario = campoClave.getText();
-                String contraseña = new String(campoContrasena.getPassword());
-
-                if (Admisionista.validarCredenciales(usuario, contraseña)) {
-                    JOptionPane.showMessageDialog(MenuAdmisionista.this, "Inicio de sesión exitoso.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    programadecitas.setVisible(true);
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(MenuAdmisionista.this, "Credenciales incorrectas. Intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+            // Validar las credenciales con el CallCenter
+            if (Admisionista.validarCredenciales(callCenter, usuario, contraseña)) {
+                JOptionPane.showMessageDialog(MenuAdmisionista.this, "Inicio de sesión exitoso.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                
+                // Abrir el menú de opciones del admisionista
+                new MenuOpcionesAdmisionista(callCenter, programaDeCitas).setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(MenuAdmisionista.this, "Credenciales incorrectas. Intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
-
+        // Acción para el botón "Registrarse"
         botonRegistrarse.addActionListener(e -> {
-            RegistroAdmisionista registroAdmisionista = new RegistroAdmisionista(this);
+            RegistroAdmisionista registroAdmisionista = new RegistroAdmisionista(MenuAdmisionista.this, callCenter);
             registroAdmisionista.setVisible(true);
-            this.setVisible(false); // Ocultar la ventana actual
+            MenuAdmisionista.this.setVisible(false);
         });
+        
 
+        // Acción al cerrar la ventana
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                programadecitas.setVisible(true);
+                programaDeCitas.setVisible(true);
             }
         });
     }

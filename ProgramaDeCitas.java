@@ -1,42 +1,61 @@
 import javax.swing.*;
-import java.awt.event.*;
 import java.awt.*;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ProgramaDeCitas extends JFrame implements ActionListener {
     private JButton botonPaciente;
     private JButton botonAdmisionista;
-    private JButton botonlistaPacientes;
-    private JButton botonlistaCitas;
-    private JButton botonlistaMedicos;
-    private JButton botonlistaEspecialistas;
-    private JLabel titulo;
+    private JLabel tituloPrincipal;
+    private JLabel tituloSecundario;
+    private JLabel imagenLabel;
     private CallCenter callCenter;
 
     public ProgramaDeCitas() {
         // Crear una instancia de CallCenter
-        
         callCenter = new CallCenter();
         callCenter.AgregarListaMedicos();
         callCenter.AgregarListaEspecialistas();
-        
-        // Inicializar los usuarios de Admisionista
-        Admisionista.inicializarUsuarios(); // Llamar a este método para crear usuarios predefinidos
 
-        
         // Configuración de la ventana
         setTitle("Programa de citas");
-        setSize(400, 200);
+        setSize(400, 400); // Ajustar tamaño para incluir la imagen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 
-        // Centrar la ventana en la pantalla
-        setLocationRelativeTo(null);
+        // Crear un panel para los títulos e imagen
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.setLayout(new BoxLayout(panelSuperior, BoxLayout.Y_AXIS)); // Organizar títulos y la imagen verticalmente
+        panelSuperior.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Añadir márgenes
 
-        // Crear y agregar el subtítulo en la parte superior
-        titulo = new JLabel("Seleccione el tipo de usuario", SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 18));
-        add(titulo, BorderLayout.NORTH);
+        // Título principal
+        tituloPrincipal = new JLabel("Programa de Citas Médicas", SwingConstants.CENTER);
+        tituloPrincipal.setFont(new Font("Arial", Font.BOLD, 20));
+        tituloPrincipal.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar horizontalmente
+
+        // Cargar imagen debajo del título principal
+        ImageIcon imagen = new ImageIcon("C:\\Users\\USUARIO\\Desktop\\logo.jpg"); // Asegúrate de que la ruta sea válida
+        Image imagenEscalada = imagen.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH); // Ajustar tamaño de la imagen
+        imagen = new ImageIcon(imagenEscalada);
+        imagenLabel = new JLabel(imagen);
+        imagenLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar horizontalmente
+        
+        // Título secundario
+        tituloSecundario = new JLabel("Seleccione el tipo de usuario", SwingConstants.CENTER);
+        tituloSecundario.setFont(new Font("Arial", Font.PLAIN, 16));
+        tituloSecundario.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar horizontalmente
+
+    
+        // Agregar títulos e imagen al panel superior
+        panelSuperior.add(tituloPrincipal);
+        panelSuperior.add(Box.createVerticalStrut(10)); // Espacio entre título principal y secundario
+        panelSuperior.add(tituloSecundario);
+        panelSuperior.add(Box.createVerticalStrut(15)); // Espacio entre títulos e imagen
+        panelSuperior.add(imagenLabel);
+
+        // Agregar el panel superior en la parte superior
+        add(panelSuperior, BorderLayout.NORTH);
 
         // Crear el panel de botones
         JPanel panelBotones = new JPanel();
@@ -45,26 +64,14 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
         // Crear y agregar los botones al panel
         botonPaciente = new JButton("Paciente");
         botonAdmisionista = new JButton("Admisionista");
-        botonlistaPacientes = new JButton("Lista de Pacientes");
-        botonlistaCitas = new JButton("Lista de Citas");
-        botonlistaMedicos = new JButton("Lista de Medicos");
-        botonlistaEspecialistas = new JButton("Lista de Especialistas");
 
         // Agregar listeners a los botones
         botonPaciente.addActionListener(this);
         botonAdmisionista.addActionListener(this);
-        botonlistaPacientes.addActionListener(this);
-        botonlistaCitas.addActionListener(this);
-        botonlistaMedicos.addActionListener(this);
-        botonlistaEspecialistas.addActionListener(this);
 
         // Agregar los botones al panel de botones
         panelBotones.add(botonPaciente);
         panelBotones.add(botonAdmisionista);
-        panelBotones.add(botonlistaPacientes);
-        panelBotones.add(botonlistaCitas);
-        panelBotones.add(botonlistaMedicos);
-        panelBotones.add(botonlistaEspecialistas);
 
         // Agregar el panel de botones en el centro
         add(panelBotones, BorderLayout.CENTER);
@@ -73,56 +80,23 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonPaciente) {
-            // Crear y mostrar la segunda ventana
+            // Crear y mostrar la ventana del paciente
             MenuPaciente menupaciente = new MenuPaciente(callCenter, ProgramaDeCitas.this);
             menupaciente.setVisible(true);
             // Ocultar la ventana principal
             setVisible(false);
         } else if (e.getSource() == botonAdmisionista) {
             // Mostrar el menú del admisionista y esconder esta ventana
-            MenuAdmisionista menuadmisionista = new MenuAdmisionista(this);
+            MenuAdmisionista menuadmisionista = new MenuAdmisionista(this, callCenter);
             menuadmisionista.setVisible(true);
             setVisible(false);
-        } else if (e.getSource() == botonlistaPacientes) {
-            // Mostrar lista de pacientes
-            List<Paciente> users = callCenter.getListaPacientes();
-            if (users.isEmpty()) {
-                System.out.println("No hay usuarios para mostrar");
-            }
-            for (int i = 0; i < users.size(); i++) {
-                System.out.println("" + (i + 1));
-                users.get(i).Imprimir();
-            }
-        } else if (e.getSource() == botonlistaCitas) {
-            // Mostrar lista de citas
-            List<Cita> citas = callCenter.getListaCitas();
-            if (citas.isEmpty()) {
-                System.out.println("No hay citas para mostrar");
-            }
-            for (int i = 0; i < citas.size(); i++) {
-                System.out.println("" + (i + 1));
-                citas.get(i).Imprimir();
-            }
-        } else if (e.getSource() == botonlistaMedicos) {
-            // Mostrar lista de médicos
-            List<Medico> medicos = callCenter.getListaMedicos();
-            if (medicos.isEmpty()) {
-                System.out.println("No hay médicos para mostrar");
-            }
-            for (int i = 0; i < medicos.size(); i++) {
-                System.out.println("" + (i + 1));
-                medicos.get(i).Imprimir();
-            }
-        } else if (e.getSource() == botonlistaEspecialistas) {
-            // Mostrar lista de especialistas
-            List<Especialista> especialistas = callCenter.getListaEspecialistas();
-            if (especialistas.isEmpty()) {
-                System.out.println("No hay especialistas para mostrar");
-            }
-            for (int i = 0; i < especialistas.size(); i++) {
-                System.out.println("" + (i + 1));
-                especialistas.get(i).Imprimir();
-            }
         }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            ProgramaDeCitas programa = new ProgramaDeCitas();
+            programa.setVisible(true);
+        });
     }
 }

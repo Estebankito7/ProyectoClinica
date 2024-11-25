@@ -115,40 +115,6 @@ public class CallCenter {
         agregarEspecialista(new Especialista("Claudia Tabares", "93485738", "3154566678", "Calle 21 # 56-12", "claudiatabares@gmail.com", "Pediatría", "R8924", "Disponible"));
     }
 
-    // Guardar información en un archivo
-    public void guardarEnArchivo() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Call Center Informacion.txt", true))) {
-            writer.write("=== Lista de Citas ===\n");
-            for (Cita cita : listaCitas) {
-                writer.write(cita.toString() + "\n");
-            }
-
-            writer.write("\n=== Lista de Usuarios ===\n");
-            for (Paciente paciente : listaPacientes) {
-                writer.write(paciente.toString() + "\n");
-            }
-
-            writer.write("\n=== Lista de Médicos ===\n");
-            for (Medico medico : listaMedicos) {
-                writer.write(medico.toString() + "\n");
-            }
-
-            writer.write("\n=== Lista de Especialistas ===\n");
-            for (Especialista especialista : listaEspecialistas) {
-                writer.write(especialista.toString() + "\n");
-            }
-
-            writer.write("\n=== Lista de Admisionistas ===\n");
-            for (Admisionista admisionista : listaAdmisionista) {
-                writer.write(admisionista.toString() + "\n");
-            }
-
-            writer.write("\n=========================\n");
-            System.out.println("Datos guardados correctamente en 'Call Center Informacion.txt'.");
-        } catch (IOException e) {
-            System.err.println("Error al guardar en el archivo: " + e.getMessage());
-        }
-    }
     public Calendario getCalendario() {
         return calendario;
     }

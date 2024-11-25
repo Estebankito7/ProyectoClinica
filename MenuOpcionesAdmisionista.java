@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class MenuOpcionesAdmisionista extends JFrame {
@@ -8,6 +10,7 @@ public class MenuOpcionesAdmisionista extends JFrame {
     private JButton botonVerMedicos;
     private JButton botonVerEspecialistas;
     private JButton botonCerrarSesion;
+    private JButton botonGenerarArchivo;
 
     @SuppressWarnings("unused")
     public MenuOpcionesAdmisionista(CallCenter callCenter, JFrame programacitas) {
@@ -37,7 +40,6 @@ public class MenuOpcionesAdmisionista extends JFrame {
                 StringBuilder pacientesInfo = new StringBuilder("********** Lista de Pacientes **********\n\n");
                 int contador = 1;
 
-                // Construir la información de los pacientes
                 for (Paciente paciente : pacientes) {
                     pacientesInfo.append("Paciente ").append(contador++).append(":\n")
                             .append("Nombre: ").append(paciente.getNombre()).append("\n")
@@ -48,23 +50,18 @@ public class MenuOpcionesAdmisionista extends JFrame {
                             .append("****************************************\n");
                 }
 
-                // Crear un JTextArea para mostrar la información de los pacientes
                 JTextArea textArea = new JTextArea(pacientesInfo.toString());
-                textArea.setEditable(false); // Hacer que el texto no sea editable
-                textArea.setLineWrap(true); // Ajustar el texto al ancho del área
-                textArea.setWrapStyleWord(true); // Ajustar las líneas por palabras completas
+                textArea.setEditable(false);
+                textArea.setLineWrap(true);
+                textArea.setWrapStyleWord(true);
 
-                // Colocar el JTextArea dentro de un JScrollPane para habilitar el
-                // desplazamiento
                 JScrollPane scrollPane = new JScrollPane(textArea);
-                scrollPane.setPreferredSize(new Dimension(500, 400)); // Tamaño preferido del área de desplazamiento
+                scrollPane.setPreferredSize(new Dimension(500, 400));
 
-                // Mostrar el JScrollPane dentro de un JOptionPane
                 JOptionPane.showMessageDialog(this, scrollPane, "Pacientes", JOptionPane.INFORMATION_MESSAGE);
-
             }
         });
-        gbc.gridy = 0; // Fila 0
+        gbc.gridy = 0;
         add(botonVerPacientes, gbc);
 
         // Botón para ver lista de citas
@@ -75,11 +72,9 @@ public class MenuOpcionesAdmisionista extends JFrame {
                 JOptionPane.showMessageDialog(this, "No hay citas registradas.", "Citas",
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
-                // Crear el StringBuilder para construir la información de las citas
                 StringBuilder citasInfo = new StringBuilder("********** Lista de Citas **********\n\n");
                 int contador = 1;
 
-                // Construir la información de las citas
                 for (Cita cita : citas) {
                     citasInfo.append("Cita ").append(contador++).append(":\n")
                             .append("Fecha: ").append(cita.getFecha()).append("\n")
@@ -92,23 +87,18 @@ public class MenuOpcionesAdmisionista extends JFrame {
                             .append("****************************************\n\n");
                 }
 
-                // Crear un JTextArea para mostrar la información de las citas
                 JTextArea textArea = new JTextArea(citasInfo.toString());
-                textArea.setEditable(false); // Hacer que el texto no sea editable
-                textArea.setLineWrap(true); // Ajustar el texto al ancho del área
-                textArea.setWrapStyleWord(true); // Ajustar las líneas por palabras completas
+                textArea.setEditable(false);
+                textArea.setLineWrap(true);
+                textArea.setWrapStyleWord(true);
 
-                // Colocar el JTextArea dentro de un JScrollPane para habilitar el
-                // desplazamiento
                 JScrollPane scrollPane = new JScrollPane(textArea);
-                scrollPane.setPreferredSize(new Dimension(500, 400)); // Tamaño preferido del área de desplazamiento
+                scrollPane.setPreferredSize(new Dimension(500, 400));
 
-                // Mostrar el JScrollPane dentro de un JOptionPane
                 JOptionPane.showMessageDialog(this, scrollPane, "Citas", JOptionPane.INFORMATION_MESSAGE);
-
             }
         });
-        gbc.gridy = 1; // Fila 1
+        gbc.gridy = 1;
         add(botonVerCitas, gbc);
 
         // Botón para ver lista de médicos
@@ -119,36 +109,29 @@ public class MenuOpcionesAdmisionista extends JFrame {
                 JOptionPane.showMessageDialog(this, "No hay médicos registrados.", "Médicos",
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
-                // Crear el StringBuilder para construir la información de los médicos
                 StringBuilder medicosInfo = new StringBuilder("********** Lista de Médicos **********\n\n");
                 int contador = 1;
 
-                // Construir la información de los médicos
                 for (Medico medico : medicos) {
                     medicosInfo.append("Médico ").append(contador++).append(":\n")
                             .append("Nombre: ").append(medico.getNombre()).append("\n")
-                            .append("Especialidad: ").append("Médico General").append("\n") // Cambiar si es necesario
                             .append("Teléfono: ").append(medico.getTelefono()).append("\n")
                             .append("Correo: ").append(medico.getCorreo()).append("\n\n")
                             .append("****************************************\n\n");
                 }
 
-                // Crear un JTextArea para mostrar la información
                 JTextArea textArea = new JTextArea(medicosInfo.toString());
-                textArea.setEditable(false); // Hacer que el texto no sea editable
-                textArea.setLineWrap(true); // Ajustar el texto al ancho del área
-                textArea.setWrapStyleWord(true); // Ajustar las líneas por palabras completas
+                textArea.setEditable(false);
+                textArea.setLineWrap(true);
+                textArea.setWrapStyleWord(true);
 
-                // Colocar el JTextArea dentro de un JScrollPane para habilitar el
-                // desplazamiento
                 JScrollPane scrollPane = new JScrollPane(textArea);
-                scrollPane.setPreferredSize(new Dimension(500, 400)); // Tamaño preferido del área de desplazamiento
+                scrollPane.setPreferredSize(new Dimension(500, 400));
 
-                // Mostrar el JScrollPane dentro de un JOptionPane
                 JOptionPane.showMessageDialog(this, scrollPane, "Médicos", JOptionPane.INFORMATION_MESSAGE);
             }
         });
-        gbc.gridy = 2; // Fila 2
+        gbc.gridy = 2;
         add(botonVerMedicos, gbc);
 
         // Botón para ver lista de especialistas
@@ -159,50 +142,102 @@ public class MenuOpcionesAdmisionista extends JFrame {
                 JOptionPane.showMessageDialog(this, "No hay especialistas registrados.", "Especialistas",
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
-                // Crear el StringBuilder para construir la información
                 StringBuilder especialistasInfo = new StringBuilder("********** Lista de Especialistas **********\n\n");
                 int contador = 1;
 
-                // Construir la información de los especialistas
                 for (Especialista especialista : especialistas) {
                     especialistasInfo.append("Especialista ").append(contador++).append(":\n")
                             .append("Nombre: ").append(especialista.getNombre()).append("\n")
-                            .append("Documento: ").append(especialista.getDocumento()).append("\n")
-                            .append("Teléfono: ").append(especialista.getTelefono()).append("\n")
-                            .append("Dirección: ").append(especialista.getDireccion()).append("\n")
-                            .append("Correo: ").append(especialista.getCorreo()).append("\n")
                             .append("Especialidad: ").append(especialista.getEspecialidad()).append("\n")
-                            .append("Registro: ").append(especialista.getRegistro()).append("\n")
-                            .append("Estado: ").append(especialista.getEstado()).append("\n\n")
+                            .append("Teléfono: ").append(especialista.getTelefono()).append("\n")
+                            .append("Correo: ").append(especialista.getCorreo()).append("\n\n")
                             .append("****************************************\n\n");
                 }
 
-                // Crear un JTextArea para mostrar la información
                 JTextArea textArea = new JTextArea(especialistasInfo.toString());
-                textArea.setEditable(false); // Hacer que el texto no sea editable
-                textArea.setLineWrap(true); // Ajustar el texto al ancho del área
-                textArea.setWrapStyleWord(true); // Ajustar las líneas por palabras completas
+                textArea.setEditable(false);
+                textArea.setLineWrap(true);
+                textArea.setWrapStyleWord(true);
 
-                // Colocar el JTextArea dentro de un JScrollPane para habilitar el
-                // desplazamiento
                 JScrollPane scrollPane = new JScrollPane(textArea);
-                scrollPane.setPreferredSize(new Dimension(500, 400)); // Tamaño preferido del área de desplazamiento
+                scrollPane.setPreferredSize(new Dimension(500, 400));
 
-                // Mostrar el JScrollPane dentro de un JOptionPane
                 JOptionPane.showMessageDialog(this, scrollPane, "Especialistas", JOptionPane.INFORMATION_MESSAGE);
-
             }
         });
-        gbc.gridy = 3; // Fila 3
+        gbc.gridy = 3;
         add(botonVerEspecialistas, gbc);
 
-        // Botón para cerrar sesión y volver al menú anterior
-        botonCerrarSesion = new JButton("Cerrar Sesión");
-        botonCerrarSesion.addActionListener(e -> {
-            programacitas.setVisible(true);
-            dispose();
+        // Botón para generar archivo
+        botonGenerarArchivo = new JButton("Generar Archivo");
+        botonGenerarArchivo.addActionListener(e -> {
+            try (FileWriter writer = new FileWriter("Informacion del programa.txt")) {
+                // Lista de Pacientes
+                writer.write("********** Lista de Pacientes **********\n\n");
+                int contador = 1;
+                for (Paciente paciente : callCenter.getListaPacientes()) {
+                    writer.write("Paciente " + contador++ + ":\n");
+                    writer.write("Nombre: " + paciente.getNombre() + "\n");
+                    writer.write("Documento: " + paciente.getDocumento() + "\n");
+                    writer.write("Teléfono: " + paciente.getTelefono() + "\n");
+                    writer.write("Dirección: " + paciente.getDireccion() + "\n");
+                    writer.write("Correo: " + paciente.getCorreo() + "\n\n");
+                    writer.write("****************************************\n");
+                }
+        
+                // Lista de Médicos
+                writer.write("\n********** Lista de Médicos **********\n\n");
+                contador = 1;
+                for (Medico medico : callCenter.getListaMedicos()) {
+                    writer.write("Médico " + contador++ + ":\n");
+                    writer.write("Nombre: " + medico.getNombre() + "\n");
+                    writer.write("Teléfono: " + medico.getTelefono() + "\n");
+                    writer.write("Correo: " + medico.getCorreo() + "\n\n");
+                    writer.write("****************************************\n");
+                }
+        
+                // Lista de Especialistas
+                writer.write("\n********** Lista de Especialistas **********\n\n");
+                contador = 1;
+                for (Especialista especialista : callCenter.getListaEspecialistas()) {
+                    writer.write("Especialista " + contador++ + ":\n");
+                    writer.write("Nombre: " + especialista.getNombre() + "\n");
+                    writer.write("Especialidad: " + especialista.getEspecialidad() + "\n");
+                    writer.write("Teléfono: " + especialista.getTelefono() + "\n");
+                    writer.write("Correo: " + especialista.getCorreo() + "\n\n");
+                    writer.write("****************************************\n");
+                }
+        
+                // Lista de Citas
+                writer.write("\n********** Lista de Citas **********\n\n");
+                contador = 1;
+                for (Cita cita : callCenter.getListaCitas()) {
+                    writer.write("Cita " + contador++ + ":\n");
+                    writer.write("Fecha: " + cita.getFecha() + "\n");
+                    writer.write("Hora: " + cita.getHora() + "\n");
+                    writer.write("Consultorio: " + cita.getConsultorio() + "\n");
+                    writer.write("Área: " + cita.getArea() + "\n");
+                    writer.write("Médico: " + cita.getMedico().getNombre() + "\n");
+                    writer.write("Especialista: " + cita.getEspecialista().getNombre() + "\n");
+                    writer.write("Paciente: " + cita.getPaciente().getNombre() + "\n\n");
+                    writer.write("****************************************\n");
+                }
+        
+                JOptionPane.showMessageDialog(this, "Archivo generado exitosamente.", "Generar Archivo",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error al generar el archivo: " + ex.getMessage(), "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         });
-        gbc.gridy = 4; // Fila 4
+        
+        gbc.gridy = 4;
+        add(botonGenerarArchivo, gbc);
+
+        // Botón para cerrar sesión
+        botonCerrarSesion = new JButton("Cerrar Sesión");
+        botonCerrarSesion.addActionListener(e -> dispose());
+        gbc.gridy = 5;
         add(botonCerrarSesion, gbc);
     }
 }

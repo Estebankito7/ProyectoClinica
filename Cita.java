@@ -8,7 +8,7 @@ import javax.swing.SwingConstants;
 public class Cita extends JFrame {
 
     private String fecha;
-    private String hora;
+    private String hora ;
     private String consultorio;
     private String area;
     private Medico medico;
@@ -18,8 +18,8 @@ public class Cita extends JFrame {
     public Cita(String fecha, String hora, String consultorio, String area, Medico medico, Especialista especialista,
             Paciente paciente) {
 
-        this.fecha = fecha;
-        this.hora = hora;
+        this.fecha ="2024-11-25";
+        this.hora = "10:00 AM";
         this.consultorio = consultorio;
         this.area = area;
         this.medico = medico;
@@ -108,14 +108,14 @@ public class Cita extends JFrame {
     }
 
 public void ConfirmaCita (){
-    String fechaCita = "2024-11-25";
-    String horaCita = "10:00 AM";
+   // String fechaCita = "2024-11-25";
+   // String horaCita = "10:00 AM";
 
     // Crear el mensaje con los datos del paciente
     String mensaje = "<html>Datos de la Cita:<br>" +
             "    Paciente: " + paciente.Nombre + "<br>" +
-            "    Fecha: " + fechaCita + "<br>" +
-            "    Hora: " + horaCita + "<br>" +
+            "    Fecha: " + fecha + "<br>" +
+            "    Hora: " + hora + "<br>" +
             "    Doctor: " + medico.Nombre + "<br>" +
             "    Especialista: " + especialista.Nombre + "</html>";
 

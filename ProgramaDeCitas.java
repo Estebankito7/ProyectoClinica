@@ -36,7 +36,7 @@ public class ProgramaDeCitas extends JFrame implements ActionListener {
         tituloPrincipal.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar horizontalmente
 
         // Cargar imagen debajo del título principal
-        ImageIcon imagen = new ImageIcon("C:\\Users\\USUARIO\\Desktop\\logo.jpg"); // Asegúrate de que la ruta sea válida
+        ImageIcon imagen = new ImageIcon("C:\\Users\\Administrator\\Desktop\\logo.jpg"); // Asegúrate de que la ruta sea válida
         Image imagenEscalada = imagen.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH); // Ajustar tamaño de la imagen
         imagen = new ImageIcon(imagenEscalada);
         imagenLabel = new JLabel(imagen);
